@@ -13,7 +13,7 @@
         }
         
         body {
-            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            background: linear-gradient(135deg, #1a2a6c, #4d50fd, #4f5ddd);
             color: #333;
             min-height: 100vh;
             display: flex;
@@ -252,17 +252,17 @@
         
         .beginner {
             background-color: #ffcccc;
-            color: #cc0000;
+            color: #7189f7;
         }
         
         .basic {
             background-color: #ffebcc;
-            color: #cc8500;
+            color: #6e5efc65;
         }
         
         .intermediate {
             background-color: #ffffcc;
-            color: #999900;
+            color: #6077fa;
         }
         
         .advanced {
@@ -352,26 +352,15 @@
     <div class="container">
         <header>
             <h1>Teste de Digitação</h1>
-            <p class="subtitle">Avalie suas habilidades com base no conteúdo das Aulas 1 a 4</p>
+            <p class="subtitle">Avalie suas habilidades no curso de digitação</p>
         </header>
         
         <div class="tabs">
-            <div class="tab active" data-lesson="1">Aula 1: Teclas F J</div>
-            <div class="tab" data-lesson="2">Aula 2: Teclas D K</div>
-            <div class="tab" data-lesson="3">Aula 3: Teclas S L</div>
-            <div class="tab" data-lesson="4">Aula 4: Teclas A Ç</div>
-            <div class="tab" data-lesson="5">Aula 5: ASDF JKLÇ</div>
-            <div class="tab" data-lesson="6">Aula 6: Teclas G H</div>
-            <div class="tab" data-lesson="7">Aula 7: ASDFG HJKLÇ</div>
-            <div class="tab" data-lesson="8">Aula 8: Palavras ASDFG HJKLÇ</div>
-            <div class="tab" data-lesson="9">Aula 9: Teclas QWERT YUIOP</div>
-            <div class="tab" data-lesson="10">Aula 10: Teclas ZXCVB NM,.;</div>
-            <div class="tab" data-lesson="11">Aula 11: QWERTYUIOP ZXCVBNM,.;</div>
-            <div class="tab" data-lesson="12">Aula 12: Palavras QWERTYUIOP ZXCVBNM</div>
-            <div class="tab" data-lesson="13">Aula 13: Teclas 12345 67890</div>
-            <div class="tab" data-lesson="14">Aula 14: Letras e Números</div>
-            <div class="tab" data-lesson="15">Aula 15: Letras, Palavras, Números e Pontuação</div>
-            <div class="tab" data-lesson="16">Aula 16: Revisão Final</div>
+            <div class="tab active" data-lesson="1">Teste 1</div>
+            <div class="tab" data-lesson="2">Teste 2</div>
+            <div class="tab" data-lesson="3">Teste 3</div>
+            <div class="tab" data-lesson="4">Teste 4</div>
+            <div class="tab" data-lesson="5">Teste 5</div>
         </div>
         
         <section class="instructions">
@@ -387,7 +376,7 @@
         
         <section class="stats">
             <div class="stat-box">
-                <div class="stat-value" id="timer">02:00</div>
+                <div class="stat-value" id="timer">05:00</div>
                 <div class="stat-label">Tempo Restante</div>
             </div>
             <div class="stat-box">
@@ -406,8 +395,7 @@
         
         <section class="typing-area">
             <div class="text-to-type" id="text-to-type">
-                f f f j j j f j f j f j fj fj jf jf ff jj ffjj jjff fjfj jfjf
-                fff jjj fffjjj jjjfff fjfjfj jfjfjf ffjjff jjffjj
+                SELECIONE O NÍVEL DO TESTE
             </div>
             
             <textarea class="input-area" id="typing-input" placeholder="Clique em 'Iniciar Teste' e comece a digitar aqui..." disabled></textarea>
@@ -555,44 +543,6 @@ aaa ççç aaaççç çççaaa açaçaç çaçaça aaççaa ççaaçç`,
 
                 5: `asdf jklç asdf jklç as jk df lç asdf jklç asdfjklç jklçasdf
 asdfasdf jklçjklç asdf jklç asdfjklç asdf jklç asdf`,
-
-                6: `g g g h h h g h g h g h gh gh hg hg gg hh gghh hhgg ghgh hghg
-ggg hhh ggghhh hhhggg ghghgh hghghg gghhgg hhgghh`,
-
-                7: `asdfg hjklç asdfg hjklç asd hjkl fg ç asdfg hjklç asdfghjklç
-asdfgasdfg hjklçhjklç asdfg hjklç asdfg hjklç asdfg`,
-
-                8: `lã lhasa gaf fada gás saga haja cada laca jaca fada gaga haja
-casa sala fada gala haja cada laca jaca fada gaga haja
-hasa gaf fada gás saga haja cada laca jaca fada gaga`,
-
-                9: `qwert yuiop qwert yuiop qw yu io er tp qwert yuiop qwertyuiop
-qwertqwert yuiopyuiop qwert yuiop qwert yuiop qwert`,
-
-                10: `zxcvb nm,.; zxcvb nm,.; zx nm cv b, .; zxcvb nm,.; zxcvbnm,.;
-zxcvbzxcvb nm,.;nm,.; zxcvb nm,.; zxcvb nm,.; zxcvb`,
-
-                11: `qwertyuiop zxcvbnm,.; qwertyuiop zxcvbnm,.; qw zx er cv ty bn ui op m, .;
-qwertyuiopzxcvbnm,.; zxcvbnm,.;qwertyuiop qwertyuiop zxcvbnm,.;`,
-
-                12: `papel zero pombo cavalo numero vaca queijo tipo zona xerox
-papel zero pombo cavalo numero vaca queijo tipo zona xerox
-pombo cavalo numero vaca queijo tipo zona xerox papel zero`,
-
-                13: `12345 67890 12345 67890 12 67 34 89 50 12345 67890 1234567890
-1234512345 6789067890 12345 67890 12345 67890 12345`,
-
-                14: `a1 s2 d3 f4 g5 h6 j7 k8 l9 ç0 a1s2d3 f4g5h6 j7k8l9ç0
-as1 df2 gh3 jk4 lç5 asdf1 ghjk2 lç34 asdfghjklç567890`,
-
-                15: `Ola, como vai? Eu tenho 25 anos e estudo digitacao ha 3 meses.
-Preciso digitar 120 palavras por minuto com 95% de precisao.
-Vamos praticar: asdf, jklç, qwert, yuiop, zxcvb, nm,.;!`,
-
-                16: `Revisao final: asdfg hjklç qwert yuiop zxcvb nm,.; 12345 67890
-Digite palavras como casa, papel, livro, mouse, teclado, numero.
-Agora com pontuacao: Ola! Como vai? Eu tenho 25 anos. Estou bem.
-Preciso atingir 60 ppm com alta precisao e consistencia. Vamos la!`
             };
             
             // Variáveis do teste
