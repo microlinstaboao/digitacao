@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste de Digitação - Aulas 1 a 4</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(to right, #2c3e50, #4a6491);
+            color: white;
+            padding: 25px;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .tabs {
+            display: flex;
+            background-color: #f1f1f1;
+            overflow-x: auto;
+        }
+        
+        .tab {
+            padding: 15px 20px;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            white-space: nowrap;
+            transition: all 0.3s;
+        }
+        
+        .tab:hover {
+            background-color: #e9ecef;
+        }
+        
+        .tab.active {
+            background-color: white;
+            border-bottom: 3px solid #4a6491;
+            font-weight: bold;
+        }
+        
+        .instructions {
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .instructions h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 1.4rem;
+        }
+        
+        .instructions ul {
+            padding-left: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .instructions li {
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+        
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            padding: 15px;
+            background-color: #e9ecef;
+            font-weight: bold;
+            border-bottom: 1px solid #dee2e6;
+            flex-wrap: wrap;
+        }
+        
+        .stat-box {
+            text-align: center;
+            padding: 10px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            min-width: 120px;
+            margin: 5px;
+        }
+        
+        .stat-value {
+            font-size: 1.8rem;
+            color: #2c3e50;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+        
+        .typing-area {
+            padding: 25px;
+        }
+        
+        .text-to-type {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 25px;
+            line-height: 1.6;
+            font-size: 1.2rem;
+            min-height: 150px;
+            color: #495057;
+            white-space: pre-wrap;
+        }
+        
+        .input-area {
+            width: 100%;
+            height: 150px;
+            padding: 15px;
+            border: 2px solid #ced4da;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            resize: none;
+            transition: border-color 0.3s;
+        }
+        
+        .input-area:focus {
+            outline: none;
+            border-color: #4a6491;
+            box-shadow: 0 0 0 3px rgba(74, 100, 145, 0.25);
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        button {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        #start-btn {
+            background-color: #28a745;
+            color: white;
+        }
+        
+        #start-btn:hover {
+            background-color: #218838;
+            transform: translateY(-2px);
+        }
+        
+        #reset-btn {
+            background-color: #dc3545;
+            color: white;
+        }
+        
+        #reset-btn:hover {
+            background-color: #c82333;
+            transform: translateY(-2px);
+        }
+        
+        #results-btn {
+            background-color: #17a2b8;
+            color: white;
+        }
+        
+        #results-btn:hover {
+            background-color: #138496;
+            transform: translateY(-2px);
+        }
+        
+        .results {
+            display: none;
+            padding: 25px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #dee2e6;
+        }
+        
+        .results h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .result-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+        
+        .result-box {
+            background-color: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .result-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin: 10px 0;
+        }
+        
+        .level-indicator {
+            font-size: 1.3rem;
+            font-weight: bold;
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .beginner {
+            background-color: #ffcccc;
+            color: #cc0000;
+        }
+        
+        .basic {
+            background-color: #ffebcc;
+            color: #cc8500;
+        }
+        
+        .intermediate {
+            background-color: #ffffcc;
+            color: #999900;
+        }
+        
+        .advanced {
+            background-color: #e6ffcc;
+            color: #4d9900;
+        }
+        
+        .expert {
+            background-color: #ccffcc;
+            color: #006600;
+        }
+        
+        .evaluation-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        
+        .evaluation-table th, .evaluation-table td {
+            border: 1px solid #dee2e6;
+            padding: 12px;
+            text-align: left;
+        }
+        
+        .evaluation-table th {
+            background-color: #4a6491;
+            color: white;
+        }
+        
+        .evaluation-table tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        
+        .highlight {
+            background-color: #fffacd !important;
+            font-weight: bold;
+        }
+        
+        .progress-container {
+            margin: 20px 0;
+        }
+        
+        .progress-bar {
+            height: 20px;
+            background-color: #e9ecef;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .progress {
+            height: 100%;
+            background-color: #4a6491;
+            border-radius: 10px;
+            transition: width 0.3s;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 15px;
+            background-color: #2c3e50;
+            color: white;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .stats {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .controls {
+                flex-direction: column;
+            }
+            
+            button {
+                width: 100%;
+            }
+            
+            .tabs {
+                flex-wrap: nowrap;
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Teste de Digitação</h1>
+            <p class="subtitle">Avalie suas habilidades com base no conteúdo das Aulas 1 a 4</p>
+        </header>
+        
+        <div class="tabs">
+            <div class="tab active" data-lesson="1">Aula 1: Teclas F J</div>
+            <div class="tab" data-lesson="2">Aula 2: Teclas D K</div>
+            <div class="tab" data-lesson="3">Aula 3: Teclas S L</div>
+            <div class="tab" data-lesson="4">Aula 4: Teclas A Ç</div>
+            <div class="tab" data-lesson="5">Aula 5: ASDF JKLÇ</div>
+            <div class="tab" data-lesson="6">Aula 6: Teclas G H</div>
+            <div class="tab" data-lesson="7">Aula 7: ASDFG HJKLÇ</div>
+            <div class="tab" data-lesson="8">Aula 8: Palavras ASDFG HJKLÇ</div>
+            <div class="tab" data-lesson="9">Aula 9: Teclas QWERT YUIOP</div>
+            <div class="tab" data-lesson="10">Aula 10: Teclas ZXCVB NM,.;</div>
+            <div class="tab" data-lesson="11">Aula 11: QWERTYUIOP ZXCVBNM,.;</div>
+            <div class="tab" data-lesson="12">Aula 12: Palavras QWERTYUIOP ZXCVBNM</div>
+            <div class="tab" data-lesson="13">Aula 13: Teclas 12345 67890</div>
+            <div class="tab" data-lesson="14">Aula 14: Letras e Números</div>
+            <div class="tab" data-lesson="15">Aula 15: Letras, Palavras, Números e Pontuação</div>
+            <div class="tab" data-lesson="16">Aula 16: Revisão Final</div>
+        </div>
+        
+        <section class="instructions">
+            <h2>Instruções:</h2>
+            <ul>
+                <li>Selecione uma aula acima para praticar.</li>
+                <li>Digite o texto abaixo exatamente como está apresentado.</li>
+                <li><strong>Não acrescente acentos ou pontuação que não estejam no texto.</strong></li>
+                <li>Clique em "Iniciar Teste" para começar. O cronômetro iniciará quando você começar a digitar.</li>
+                <li>Concentre-se primeiro na precisão e depois na velocidade.</li>
+            </ul>
+        </section>
+        
+        <section class="stats">
+            <div class="stat-box">
+                <div class="stat-value" id="timer">02:00</div>
+                <div class="stat-label">Tempo Restante</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value" id="wpm">0</div>
+                <div class="stat-label">Palavras por Minuto</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value" id="accuracy">100%</div>
+                <div class="stat-label">Precisão</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value" id="consistency">100%</div>
+                <div class="stat-label">Consistência</div>
+            </div>
+        </section>
+        
+        <section class="typing-area">
+            <div class="text-to-type" id="text-to-type">
+                f f f j j j f j f j f j fj fj jf jf ff jj ffjj jjff fjfj jfjf
+                fff jjj fffjjj jjjfff fjfjfj jfjfjf ffjjff jjffjj
+            </div>
+            
+            <textarea class="input-area" id="typing-input" placeholder="Clique em 'Iniciar Teste' e comece a digitar aqui..." disabled></textarea>
+            
+            <div class="progress-container">
+                <div>Progresso: <span id="progress-text">0%</span></div>
+                <div class="progress-bar">
+                    <div class="progress" id="progress-bar" style="width: 0%"></div>
+                </div>
+            </div>
+            
+            <div class="controls">
+                <button id="start-btn">Iniciar Teste</button>
+                <button id="reset-btn" disabled>Reiniciar</button>
+                <button id="results-btn" disabled>Ver Resultados</button>
+            </div>
+        </section>
+        
+        <section class="results" id="results">
+            <h2>Seu Desempenho</h2>
+            
+            <div class="result-stats">
+                <div class="result-box">
+                    <div>Velocidade</div>
+                    <div class="result-value" id="final-wpm">0 PPM</div>
+                    <div>Palavras por Minuto</div>
+                </div>
+                <div class="result-box">
+                    <div>Precisão</div>
+                    <div class="result-value" id="final-accuracy">100%</div>
+                    <div>Porcentagem de Acertos</div>
+                </div>
+                <div class="result-box">
+                    <div>Consistência</div>
+                    <div class="result-value" id="final-consistency">100%</div>
+                    <div>Uniformidade da Digitação</div>
+                </div>
+                <div class="result-box">
+                    <div>Tempo</div>
+                    <div class="result-value" id="final-time">0s</div>
+                    <div>Duração do Teste</div>
+                </div>
+            </div>
+            
+            <div class="level-indicator" id="level-indicator">
+                <!-- O nível será inserido aqui via JavaScript -->
+            </div>
+            
+            <table class="evaluation-table">
+                <thead>
+                    <tr>
+                        <th>Nível</th>
+                        <th>Velocidade (PPM)</th>
+                        <th>Precisão</th>
+                        <th>Consistência</th>
+                        <th>Observações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr id="beginner-row">
+                        <td>Iniciante</td>
+                        <td>0 - 20</td>
+                        <td>&lt; 80%</td>
+                        <td>&lt; 70%</td>
+                        <td>Está familiarizando com a posição das teclas. Foca em olhar para o teclado.</td>
+                    </tr>
+                    <tr id="basic-row">
+                        <td>Básico</td>
+                        <td>21 - 35</td>
+                        <td>80% - 89%</td>
+                        <td>70% - 79%</td>
+                        <td>Já tem alguma memória muscular. Comete alguns erros mas mostra progresso.</td>
+                    </tr>
+                    <tr id="intermediate-row">
+                        <td>Intermediário</td>
+                        <td>36 - 50</td>
+                        <td>90% - 94%</td>
+                        <td>80% - 89%</td>
+                        <td>Consegue digitar trechos sem olhar constantemente para o teclado.</td>
+                    </tr>
+                    <tr id="advanced-row">
+                        <td>Avançado</td>
+                        <td>51 - 65</td>
+                        <td>95% - 98%</td>
+                        <td>90% - 95%</td>
+                        <td>Domina as teclas das aulas. Digita com fluidez e poucos erros.</td>
+                    </tr>
+                    <tr id="expert-row">
+                        <td>Expert</td>
+                        <td>66+</td>
+                        <td>99%+</td>
+                        <td>96%+</td>
+                        <td>Digitação rápida e precisa, com total domínio do conteúdo.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+        
+        <footer>
+            <p>Teste de Digitação - Baseado no conteúdo das Aulas 1 a 16</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Elementos DOM
+            const typingInput = document.getElementById('typing-input');
+            const textToType = document.getElementById('text-to-type');
+            const startBtn = document.getElementById('start-btn');
+            const resetBtn = document.getElementById('reset-btn');
+            const resultsBtn = document.getElementById('results-btn');
+            const timerDisplay = document.getElementById('timer');
+            const wpmDisplay = document.getElementById('wpm');
+            const accuracyDisplay = document.getElementById('accuracy');
+            const consistencyDisplay = document.getElementById('consistency');
+            const resultsSection = document.getElementById('results');
+            const finalWpm = document.getElementById('final-wpm');
+            const finalAccuracy = document.getElementById('final-accuracy');
+            const finalConsistency = document.getElementById('final-consistency');
+            const finalTime = document.getElementById('final-time');
+            const levelIndicator = document.getElementById('level-indicator');
+            const progressBar = document.getElementById('progress-bar');
+            const progressText = document.getElementById('progress-text');
+            const tabs = document.querySelectorAll('.tab');
+            
+            // Textos para cada aula
+            const lessonTexts = {
+                1: `a noite cai e a sala fica em silencio. julio entra devagar e sente ar pesado no ar. a janela esta aberta e a cortina se move com vento forte. sergio aparece depois e olha para os lados. ele diz que viu sombra no patio, mas nao sabe quem era. joao acende luz e procura sinal no chao. cada detalhe pode revelar pista do que ocorreu.  
+
+o grupo segue pelo corredor e ouve eco dos proprios passos. cada segundo parece maior. no fim eles encontram porta de ferro trancada. julio tenta abrir, mas nao consegue. de repente, um ruido ecoa no teto e todos param.  
+
+sergio abre gaveta velha e encontra caderno com linhas de codigo. joao tenta ler, mas letras nao fazem sentido. mesmo assim sente que ha segredo oculto ali.  
+
+cada sombra na parede parece viva, cada ruido parece chamado. tempo corre e ninguem entende o misterio. no fim eles saem em silencio, sabendo que terao de voltar para buscar a verdade escondida.
+`,
+
+                2: `d d d k k k d k d k d k dk dk kd kd dd kk ddkk kkdd dkdk kdkd
+ddd kkk dddkkk kkkddd dkdkdk kdkdkd ddkkdd kkddkk`,
+
+                3: `s s s l l l s l s l s l sl sl ls ls ss ll ssll llss slsl lsls
+sss lll ssslll lllsss slslsl lslsls ssllss llssll`,
+
+                4: `a a a ç ç ç a ç a ç a ç aç aç ça ça aa çç aaçç ççaa açaç çaça
+aaa ççç aaaççç çççaaa açaçaç çaçaça aaççaa ççaaçç`,
+
+                5: `asdf jklç asdf jklç as jk df lç asdf jklç asdfjklç jklçasdf
+asdfasdf jklçjklç asdf jklç asdfjklç asdf jklç asdf`,
+
+                6: `g g g h h h g h g h g h gh gh hg hg gg hh gghh hhgg ghgh hghg
+ggg hhh ggghhh hhhggg ghghgh hghghg gghhgg hhgghh`,
+
+                7: `asdfg hjklç asdfg hjklç asd hjkl fg ç asdfg hjklç asdfghjklç
+asdfgasdfg hjklçhjklç asdfg hjklç asdfg hjklç asdfg`,
+
+                8: `lã lhasa gaf fada gás saga haja cada laca jaca fada gaga haja
+casa sala fada gala haja cada laca jaca fada gaga haja
+hasa gaf fada gás saga haja cada laca jaca fada gaga`,
+
+                9: `qwert yuiop qwert yuiop qw yu io er tp qwert yuiop qwertyuiop
+qwertqwert yuiopyuiop qwert yuiop qwert yuiop qwert`,
+
+                10: `zxcvb nm,.; zxcvb nm,.; zx nm cv b, .; zxcvb nm,.; zxcvbnm,.;
+zxcvbzxcvb nm,.;nm,.; zxcvb nm,.; zxcvb nm,.; zxcvb`,
+
+                11: `qwertyuiop zxcvbnm,.; qwertyuiop zxcvbnm,.; qw zx er cv ty bn ui op m, .;
+qwertyuiopzxcvbnm,.; zxcvbnm,.;qwertyuiop qwertyuiop zxcvbnm,.;`,
+
+                12: `papel zero pombo cavalo numero vaca queijo tipo zona xerox
+papel zero pombo cavalo numero vaca queijo tipo zona xerox
+pombo cavalo numero vaca queijo tipo zona xerox papel zero`,
+
+                13: `12345 67890 12345 67890 12 67 34 89 50 12345 67890 1234567890
+1234512345 6789067890 12345 67890 12345 67890 12345`,
+
+                14: `a1 s2 d3 f4 g5 h6 j7 k8 l9 ç0 a1s2d3 f4g5h6 j7k8l9ç0
+as1 df2 gh3 jk4 lç5 asdf1 ghjk2 lç34 asdfghjklç567890`,
+
+                15: `Ola, como vai? Eu tenho 25 anos e estudo digitacao ha 3 meses.
+Preciso digitar 120 palavras por minuto com 95% de precisao.
+Vamos praticar: asdf, jklç, qwert, yuiop, zxcvb, nm,.;!`,
+
+                16: `Revisao final: asdfg hjklç qwert yuiop zxcvb nm,.; 12345 67890
+Digite palavras como casa, papel, livro, mouse, teclado, numero.
+Agora com pontuacao: Ola! Como vai? Eu tenho 25 anos. Estou bem.
+Preciso atingir 60 ppm com alta precisao e consistencia. Vamos la!`
+            };
+            
+            // Variáveis do teste
+            let timeLeft = 300; // 5 minutos em segundos
+            let timerInterval;
+            let testStarted = false;
+            let startTime;
+            let typedText = '';
+            let originalText = textToType.textContent;
+            let correctChars = 0;
+            let totalChars = 0;
+            let currentLesson = 1;
+            let consistencyData = []; // Para calcular consistência
+            
+            // Event Listeners
+            startBtn.addEventListener('click', startTest);
+            resetBtn.addEventListener('click', resetTest);
+            resultsBtn.addEventListener('click', showResults);
+            typingInput.addEventListener('input', handleTyping);
+            
+            // Adicionar eventos para as abas
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    // Remover a classe active de todas as abas
+                    tabs.forEach(t => t.classList.remove('active'));
+                    // Adicionar a classe active à aba clicada
+                    this.classList.add('active');
+                    // Alterar a lição atual
+                    currentLesson = parseInt(this.getAttribute('data-lesson'));
+                    // Carregar o texto da lição
+                    loadLessonText(currentLesson);
+                    // Reiniciar o teste se estiver em andamento
+                    if (testStarted) {
+                        resetTest();
+                    }
+                });
+            });
+            
+            // Carregar texto da lição
+            function loadLessonText(lesson) {
+                originalText = lessonTexts[lesson];
+                textToType.textContent = originalText;
+                resetTest();
+            }
+            
+            // Iniciar o teste
+            function startTest() {
+                testStarted = true;
+                typingInput.disabled = false;
+                typingInput.focus();
+                startBtn.disabled = true;
+                resetBtn.disabled = false;
+                resultsBtn.disabled = true;
+                
+                // Iniciar o cronômetro
+                startTime = new Date();
+                timerInterval = setInterval(updateTimer, 1000);
+                
+                // Inicializar dados de consistência
+                consistencyData = [];
+            }
+            
+            // Atualizar o cronômetro
+            function updateTimer() {
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    endTest();
+                    return;
+                }
+                
+                timeLeft--;
+                const minutes = Math.floor(timeLeft / 60);
+                const seconds = timeLeft % 60;
+                timerDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                
+                // Atualizar estatísticas em tempo real
+                updateRealTimeStats();
+            }
+            
+            // Atualizar estatísticas em tempo real
+            function updateRealTimeStats() {
+                if (!testStarted) return;
+                
+                const currentTime = new Date();
+                const elapsedTime = (currentTime - startTime) / 1000 / 60; // em minutos
+                
+                // Calcular palavras por minuto
+                const wordCount = countWords(typedText);
+                const wpm = elapsedTime > 0 ? Math.round(wordCount / elapsedTime) : 0;
+                wpmDisplay.textContent = wpm;
+                
+                // Calcular precisão
+                const accuracy = totalChars > 0 ? Math.round((correctChars / totalChars) * 100) : 100;
+                accuracyDisplay.textContent = `${accuracy}%`;
+                
+                // Calcular e atualizar consistência
+                updateConsistency(wpm, accuracy);
+                
+                // Atualizar barra de progresso
+                updateProgress();
+            }
+            
+            // Atualizar a consistência
+            function updateConsistency(wpm, accuracy) {
+                const currentTime = new Date();
+                consistencyData.push({
+                    time: currentTime,
+                    wpm: wpm,
+                    accuracy: accuracy
+                });
+                
+                // Manter apenas os dados dos últimos 30 segundos para cálculo
+                const thirtySecondsAgo = new Date(currentTime - 30000);
+                consistencyData = consistencyData.filter(data => data.time > thirtySecondsAgo);
+                
+                if (consistencyData.length > 1) {
+                    // Calcular variação de WPM
+                    const wpmValues = consistencyData.map(data => data.wpm);
+                    const wpmAvg = wpmValues.reduce((a, b) => a + b, 0) / wpmValues.length;
+                    const wpmVariance = wpmValues.reduce((sum, value) => sum + Math.pow(value - wpmAvg, 2), 0) / wpmValues.length;
+                    const wpmStdDev = Math.sqrt(wpmVariance);
+                    
+                    // Calcular variação de precisão
+                    const accuracyValues = consistencyData.map(data => data.accuracy);
+                    const accuracyAvg = accuracyValues.reduce((a, b) => a + b, 0) / accuracyValues.length;
+                    const accuracyVariance = accuracyValues.reduce((sum, value) => sum + Math.pow(value - accuracyAvg, 2), 0) / accuracyValues.length;
+                    const accuracyStdDev = Math.sqrt(accuracyVariance);
+                    
+                    // Calcular consistência geral (quanto menor o desvio padrão, maior a consistência)
+                    const maxWpmStdDev = 10; // Valor máximo razoável para desvio padrão do WPM
+                    const maxAccuracyStdDev = 5; // Valor máximo razoável para desvio padrão da precisão
+                    
+                    const wpmConsistency = Math.max(0, 100 - (wpmStdDev / maxWpmStdDev * 100));
+                    const accuracyConsistency = Math.max(0, 100 - (accuracyStdDev / maxAccuracyStdDev * 100));
+                    
+                    const overallConsistency = Math.round((wpmConsistency + accuracyConsistency) / 2);
+                    consistencyDisplay.textContent = `${overallConsistency}%`;
+                } else {
+                    consistencyDisplay.textContent = '100%';
+                }
+            }
+            
+            // Atualizar barra de progresso
+            function updateProgress() {
+                const progress = (typedText.length / originalText.length) * 100;
+                const progressValue = Math.min(100, Math.round(progress));
+                progressBar.style.width = `${progressValue}%`;
+                progressText.textContent = `${progressValue}%`;
+            }
+            
+            // Contar palavras em um texto
+            function countWords(text) {
+                return text.trim().split(/\s+/).length;
+            }
+            
+            // Manipular a digitação
+            function handleTyping() {
+                if (!testStarted) return;
+                
+                typedText = typingInput.value;
+                totalChars = typedText.length;
+                
+                // Calcular caracteres corretos
+                correctChars = 0;
+                for (let i = 0; i < Math.min(typedText.length, originalText.length); i++) {
+                    if (typedText[i] === originalText[i]) {
+                        correctChars++;
+                    }
+                }
+                
+                // Verificar se o texto foi completamente digitado
+                if (typedText === originalText) {
+                    endTest();
+                }
+                
+                updateRealTimeStats();
+            }
+            
+            // Finalizar o teste
+            function endTest() {
+                clearInterval(timerInterval);
+                testStarted = false;
+                typingInput.disabled = true;
+                resultsBtn.disabled = false;
+                
+                // Calcular estatísticas finais
+                const endTime = new Date();
+                const elapsedTime = (endTime - startTime) / 1000; // em segundos
+                const wordCount = countWords(typedText);
+                const wpm = Math.round(wordCount / (elapsedTime / 60));
+                const accuracy = totalChars > 0 ? Math.round((correctChars / totalChars) * 100) : 100;
+                
+                // Calcular consistência final
+                let finalConsistencyValue = 100;
+                if (consistencyData.length > 1) {
+                    const wpmValues = consistencyData.map(data => data.wpm);
+                    const wpmAvg = wpmValues.reduce((a, b) => a + b, 0) / wpmValues.length;
+                    const wpmVariance = wpmValues.reduce((sum, value) => sum + Math.pow(value - wpmAvg, 2), 0) / wpmValues.length;
+                    const wpmStdDev = Math.sqrt(wpmVariance);
+                    
+                    const accuracyValues = consistencyData.map(data => data.accuracy);
+                    const accuracyAvg = accuracyValues.reduce((a, b) => a + b, 0) / accuracyValues.length;
+                    const accuracyVariance = accuracyValues.reduce((sum, value) => sum + Math.pow(value - accuracyAvg, 2), 0) / accuracyValues.length;
+                    const accuracyStdDev = Math.sqrt(accuracyVariance);
+                    
+                    const maxWpmStdDev = 10;
+                    const maxAccuracyStdDev = 5;
+                    
+                    const wpmConsistency = Math.max(0, 100 - (wpmStdDev / maxWpmStdDev * 100));
+                    const accuracyConsistency = Math.max(0, 100 - (accuracyStdDev / maxAccuracyStdDev * 100));
+                    
+                    finalConsistencyValue = Math.round((wpmConsistency + accuracyConsistency) / 2);
+                }
+                
+                // Exibir resultados
+                finalWpm.textContent = `${wpm} PPM`;
+                finalAccuracy.textContent = `${accuracy}%`;
+                finalConsistency.textContent = `${finalConsistencyValue}%`;
+                finalTime.textContent = `${Math.round(elapsedTime)}s`;
+                
+                // Determinar o nível
+                determineLevel(wpm, accuracy, finalConsistencyValue);
+            }
+            
+            // Determinar o nível com base na velocidade, precisão e consistência
+            function determineLevel(wpm, accuracy, consistency) {
+                // Remover destaque de todas as linhas
+                document.querySelectorAll('.evaluation-table tr').forEach(row => {
+                    row.classList.remove('highlight');
+                });
+                
+                let level, levelClass, description;
+                
+                if (wpm <= 20 || accuracy < 80 || consistency < 70) {
+                    level = "Iniciante";
+                    levelClass = "beginner";
+                    description = "Está familiarizando com a posição das teclas. Foca em olhar para o teclado.";
+                    document.getElementById('beginner-row').classList.add('highlight');
+                } else if (wpm <= 35 || accuracy < 90 || consistency < 80) {
+                    level = "Básico";
+                    levelClass = "basic";
+                    description = "Já tem alguma memória muscular. Comete alguns erros mas mostra progresso.";
+                    document.getElementById('basic-row').classList.add('highlight');
+                } else if (wpm <= 50 || accuracy < 95 || consistency < 90) {
+                    level = "Intermediário";
+                    levelClass = "intermediate";
+                    description = "Consegue digitar trechos sem olhar constantemente para o teclado.";
+                    document.getElementById('intermediate-row').classList.add('highlight');
+                } else if (wpm <= 65 || accuracy < 99 || consistency < 96) {
+                    level = "Avançado";
+                    levelClass = "advanced";
+                    description = "Domina as teclas das aulas. Digita com fluidez e poucos erros.";
+                    document.getElementById('advanced-row').classList.add('highlight');
+                } else {
+                    level = "Expert";
+                    levelClass = "expert";
+                    description = "Digitação rápida e precisa, com total domínio do conteúdo.";
+                    document.getElementById('expert-row').classList.add('highlight');
+                }
+                
+                levelIndicator.textContent = `Seu nível: ${level}`;
+                levelIndicator.className = `level-indicator ${levelClass}`;
+            }
+            
+            // Mostrar resultados
+            function showResults() {
+                resultsSection.style.display = 'block';
+                resultsSection.scrollIntoView({ behavior: 'smooth' });
+            }
+            
+            // Reiniciar o teste
+            function resetTest() {
+                clearInterval(timerInterval);
+                testStarted = false;
+                timeLeft = 300;
+                timerDisplay.textContent = '05:00';
+                wpmDisplay.textContent = '0';
+                accuracyDisplay.textContent = '100%';
+                consistencyDisplay.textContent = '100%';
+                typingInput.value = '';
+                typedText = '';
+                totalChars = 0;
+                correctChars = 0;
+                typingInput.disabled = true;
+                startBtn.disabled = false;
+                resetBtn.disabled = true;
+                resultsBtn.disabled = true;
+                resultsSection.style.display = 'none';
+                progressBar.style.width = '0%';
+                progressText.textContent = '0%';
+                
+                // Remover destaque da tabela
+                document.querySelectorAll('.evaluation-table tr').forEach(row => {
+                    row.classList.remove('highlight');
+                });
+            }
+        });
+    </script>
+</body>
+</html>
