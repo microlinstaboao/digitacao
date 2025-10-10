@@ -372,6 +372,7 @@
                 <li><strong>Não acrescente acentos ou pontuação que não estejam no texto.</strong></li>
                 <li>Clique em "Iniciar Teste" para começar. O cronômetro iniciará quando você começar a digitar.</li>
                 <li>Concentre-se primeiro na precisão e depois na velocidade.</li>
+                <li><strong>O teste termina automaticamente quando todo o texto for digitado.</strong></li>
             </ul>
         </section>
         
@@ -555,7 +556,7 @@ asdfasdf jklçjklç asdf jklç asdfjklç asdf jklç asdf`,
             };
             
             // Variáveis do teste
-            let timeLeft = 300; // 5 minutos em segundos
+            let timeLeft = 420; // 7 minutos em segundos
             let timerInterval;
             let testStarted = false;
             let startTime;
@@ -725,7 +726,7 @@ asdfasdf jklçjklç asdf jklç asdfjklç asdf jklç asdf`,
                 return text.trim().split(/\s+/).length;
             }
             
-            // Manipular a digitação - CORRIGIDA
+            // Manipular a digitação - MODIFICADA para encerrar o teste quando o texto estiver completo
             function handleTyping() {
                 if (!testStarted) return;
                 
@@ -753,9 +754,16 @@ asdfasdf jklçjklç asdf jklç asdfjklç asdf jklç asdf`,
                 typedText = newTypedText;
                 totalChars = typedText.length;
                 
-                // Verificar se o texto foi completamente digitado
-                if (typedText === originalText) {
-                    endTest();
+                // VERIFICAR SE O TEXTO FOI COMPLETAMENTE DIGITADO
+                // Comparar o texto digitado com o texto original
+                if (typedText.length >= originalText.length) {
+                    // Verificar se o texto está correto (considerando que o usuário pode ter digitado além)
+                    const isTextComplete = typedText.substring(0, originalText.length) === originalText;
+                    
+                    if (isTextComplete) {
+                        // Texto completamente digitado e correto - encerrar o teste
+                        endTest();
+                    }
                 }
                 
                 updateRealTimeStats();
@@ -887,6 +895,3 @@ asdfasdf jklçjklç asdf jklç asdfjklç asdf jklç asdf`,
     </script>
 </body>
 </html>
-
-
-
