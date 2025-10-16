@@ -181,13 +181,19 @@ document.addEventListener('DOMContentLoaded', function() {
     const tabs = document.querySelectorAll('.tab');
 
     const lessonTexts = {
-        1: "o sol brilha; o dia inicia; pessoas caminham; o dever chama; um carro passa. um jovem corre; ele segue apressado; seu chefe aguarda; o sistema inicia. meninos brincam; elas seguem para a escola; a mestra explica; todos escutam atentos. o trem chega; viajantes entram; um jornal aberto; folhas viram. a tarde chega; pausa pequena; sanduiche com carne.amigos encontram; eles conversam sobre jogo. a noite vem; luas e estrelas mostram; a cidade repousa. um sonho surge; a mente flutua; o corpo relaxa. o dia seguinte nasce; a jornada continua firme adiante; fim.",
-        2: "Texto do teste 2...",
-        3: "Texto do teste 3...",
-        4: "Texto do teste 4...",
-        5: "Texto do teste 5...",
-        6: "Escreva um texto livre sobre o tema que desejar. O botão 'Finalizar' será liberado após 3 minutos."
-    };
+    1: "o sol brilha; o dia inicia; pessoas caminham; o dever chama; um carro passa. um jovem corre; ele segue apressado; seu chefe aguarda; o sistema inicia. meninos brincam; elas seguem para a escola; a mestra explica; todos escutam atentos. o trem chega; viajantes entram; um jornal aberto; folhas viram. a tarde chega; pausa pequena; sanduiche com carne. amigos encontram; eles conversam sobre jogo. a noite vem; luas e estrelas mostram; a cidade repousa. um sonho surge; a mente flutua; o corpo relaxa. o dia seguinte nasce; a jornada continua firme adiante; fim.",
+
+    2: "Cuidar do planeta é responsabilidade de todos. Quando jogamos lixo na rua, ele pode ir parar nos rios e causar enchentes. Separar o lixo reciclável, economizar água e apagar as luzes quando saímos de um cômodo são atitudes simples que fazem diferença. Muitas escolas realizam projetos ambientais para ensinar os alunos a preservar a natureza. Cada pequeno gesto conta e contribui para um futuro melhor. Use a água com consciência e evite o desperdício. Plante uma árvore sempre que possível e incentive outras pessoas a fazerem o mesmo. Hoje é dia 09/10/2025. Este é um bom momento para refletir e agir em favor do meio ambiente.",
+
+    3: "Vivemos em uma época em que o acesso à informação é muito rápido. Com apenas alguns cliques, podemos ler notícias, assistir a vídeos e aprender sobre qualquer assunto. No entanto, é importante verificar se as fontes são confiáveis antes de compartilhar o que recebemos. A desinformação pode causar confusões e até prejudicar pessoas. Por isso, ler com atenção e comparar diferentes fontes é uma forma de exercer a cidadania. A internet é uma ferramenta poderosa para estudar, trabalhar e se comunicar. Usá-la com responsabilidade é essencial para aproveitar seus benefícios. Hoje é 09/10/2025, e estar bem informado é uma habilidade indispensável no mundo atual.",
+
+    4: "Manter a organização no dia a dia ajuda a economizar tempo e reduzir o estresse. Ter um local limpo e planejado facilita o estudo e o trabalho. Fazer listas de tarefas é uma ótima maneira de lembrar compromissos e priorizar o que é mais importante. Usar uma agenda, seja no papel ou no celular, ajuda a manter o foco. Ao concluir cada tarefa, o sentimento de dever cumprido motiva a continuar. Pequenas atitudes, como guardar os materiais no lugar certo e planejar o dia anterior, fazem uma grande diferença. Hoje é 09/10/2025, e nunca foi tão necessário saber administrar o próprio tempo. Ser organizado é um passo importante para alcançar bons resultados.",
+
+    5: "A tecnologia está transformando a forma como trabalhamos e aprendemos. Novas ferramentas surgem todos os dias, facilitando a comunicação e o acesso à informação. Profissionais que dominam o uso dos computadores e da internet têm mais chances no mercado. No futuro, muitas profissões dependerão de habilidades digitais e de pensamento criativo. Saber digitar com rapidez e precisão é uma dessas competências essenciais. Mesmo com tanta tecnologia, o ser humano continua sendo o centro das decisões. Usar a tecnologia com ética e responsabilidade é o que garante o verdadeiro progresso. Hoje é 09/10/2025, e o futuro já começou. Preparar-se para ele é o melhor investimento.",
+
+    6: "Escreva um texto livre sobre o tema que desejar. O botão 'Finalizar' será liberado após 3 minutos."
+};
+
 
     let currentLesson = 1;
     let elapsedTime = 0;
