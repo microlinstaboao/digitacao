@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curso de Digitação - Testes Interativos</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/teste.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎯 Curso de Digitação</h1>
+            <p class="subtitle">Desenvolva sua velocidade e precisão</p>
+            
+            <!-- Menu de Navegação -->
+            <nav class="main-nav">
+                <a href="index.html" class="nav-btn active">🏠 Testes de Digitação</a>
+                <a href="cadastro-produtos.html" class="nav-btn">📦 Cadastro de Produtos</a>
+            </nav>
+        </header>
+
+        <div class="tabs">
+            <div class="tab active" data-lesson="1">Teste 1</div>
+            <div class="tab" data-lesson="2">Teste 2</div>
+            <div class="tab" data-lesson="3">Teste 3</div>
+            <div class="tab" data-lesson="4">Teste 4</div>
+            <div class="tab" data-lesson="5">Teste 5</div>
+            <div class="tab" data-lesson="6">Texto Livre</div>
+        </div>
+
+        <section class="instructions">
+            <h2>Instruções:</h2>
+            <ul>
+                <li>Selecione uma aula acima para praticar.</li>
+                <li>Digite o texto abaixo exatamente como está apresentado ou escreva livremente no Teste 6.</li>
+                <li>Concentre-se na precisão e depois na velocidade.</li>
+                <li>O botão <strong>Finalizar</strong> será liberado após 3 minutos no Teste Livre.</li>
+                <li><strong>Novo:</strong> Pratique também com <a href="cadastro-produtos.html">sistema de cadastro de produtos</a>!</li>
+            </ul>
+        </section>
+
+        <section class="stats">
+            <div class="stat-box">
+                <div class="stat-value" id="timer">00:00</div>
+                <div class="stat-label" id="time-warning">Tempo decorrido</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value" id="wpm">0</div>
+                <div class="stat-label">Palavras por Minuto</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-value" id="accuracy">100%</div>
+                <div class="stat-label">Precisão</div>
+            </div>
+        </section>
+
+        <section class="typing-area">
+            <div class="text-to-type" id="text-to-type">SELECIONE O TESTE</div>
+            <textarea class="input-area" id="typing-input" placeholder="Clique em 'Iniciar Teste' e comece a digitar..." disabled></textarea>
+            <div class="controls">
+                <button id="start-btn">Iniciar Teste</button>
+                <button id="finish-btn" disabled>Finalizar Teste</button>
+                <button id="reset-btn" disabled>Reiniciar</button>
+                <button id="results-btn" disabled>Ver Resultados</button>
+            </div>
+        </section>
+
+        <section class="results" id="results">
+            <h2>Seu Desempenho</h2>
+            <p><strong>Velocidade:</strong> <span id="final-wpm">0</span> PPM | 
+               <strong>Precisão:</strong> <span id="final-accuracy">100%</span> |
+               <strong>Tempo:</strong> <span id="final-time">0s</span></p>
+        </section>
+
+        <footer>
+            <p>Curso de Digitação - Desenvolvido para prática realista</p>
+            <div class="footer-links">
+                <a href="cadastro-produtos.html">→ Ir para Cadastro de Produtos</a>
+            </div>
+        </footer>
+    </div>
+
+    <script src="assets/js/main.js"></script>
+</body>
+</html>

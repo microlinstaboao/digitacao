@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Cadastro de Produtos - Curso de Digitação</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/teste.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Cabeçalho com Navegação -->
+        <header>
+            <h1>📦 Sistema de Cadastro de Produtos</h1>
+            <p class="subtitle">Pratique digitação em contexto real de trabalho</p>
+            
+            <nav class="main-nav">
+                <a href="index.html" class="nav-btn">🏠 Testes de Digitação</a>
+                <a href="cadastro-produtos.html" class="nav-btn active">📦 Cadastro de Produtos</a>
+            </nav>
+        </header>
+
+        <!-- Informações da Empresa -->
+        <div class="empresa-info">
+            <div><strong>FEDERAL DISTRIBUIDORA DE EMBALAGENS</strong></div>
+            <div>CNPJ: 11.011.793/0001-60</div>
+            <div>Orçamento: #12522 | Data: 22/09/2025</div>
+        </div>
+
+        <!-- Painel de Estatísticas -->
+        <div class="stats-panel">
+            <div class="stat-card">
+                <div class="stat-value" id="wpm">0</div>
+                <div class="stat-label">Palavras por Minuto</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="accuracy">100%</div>
+                <div class="stat-label">Precisão</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="time">00:00</div>
+                <div class="stat-label">Tempo Decorrido</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value" id="progress">0/10</div>
+                <div class="stat-label">Produtos</div>
+            </div>
+        </div>
+
+        <!-- Painel de Controles Superior -->
+        <div class="controls-panel">
+            <button class="btn btn-primary" id="startBtn">▶ INICIAR TESTE</button>
+            <button class="btn btn-secondary" id="resetBtn">🔄 REINICIAR</button>
+            <button class="btn btn-success" id="nextBtn" disabled>⏭️ PRÓXIMO PRODUTO</button>
+        </div>
+
+        <!-- Conteúdo Principal -->
+        <div class="content">
+            <!-- Lado Esquerdo - Produtos para Digitar -->
+            <div class="products-side">
+                <h2>🎯 PRODUTOS PARA CADASTRAR</h2>
+                <div id="productsContainer">
+                    <!-- As fichas de produto serão geradas aqui pelo JavaScript -->
+                </div>
+            </div>
+
+            <!-- Lado Direito - Área de Digitação -->
+            <div class="input-side">
+                <h2>⌨️ ÁREA DE DIGITAÇÃO</h2>
+                
+                <div class="current-field-info" id="currentFieldInfo">
+                    <h4>Pronto para começar!</h4>
+                    <p>Clique em "Iniciar Teste" para começar a digitar os dados dos produtos</p>
+                </div>
+
+                <div class="input-area-container">
+                    <textarea 
+                        class="input-area" 
+                        id="textInput" 
+                        placeholder="Digite os dados do produto atual aqui... (O campo atual será destacado em amarelo)"
+                        disabled
+                    ></textarea>
+                    
+                    <div class="completion-bar">
+                        <div class="completion-progress" id="completionProgress" style="width: 0%"></div>
+                    </div>
+                </div>
+
+                <!-- Resultados -->
+                <div class="results" id="results">
+                    <h3>🎯 TESTE CONCLUÍDO!</h3>
+                    <div class="results-grid">
+                        <div class="result-item">
+                            <div class="result-value" id="finalWpm">0</div>
+                            <div class="result-label">PPM Final</div>
+                        </div>
+                        <div class="result-item">
+                            <div class="result-value" id="finalAccuracy">100%</div>
+                            <div class="result-label">Precisão</div>
+                        </div>
+                        <div class="result-item">
+                            <div class="result-value" id="finalTime">00:00</div>
+                            <div class="result-label">Tempo Total</div>
+                        </div>
+                        <div class="result-item">
+                            <div class="result-value" id="totalChars">0</div>
+                            <div class="result-label">Caracteres</div>
+                        </div>
+                        <div class="result-item">
+                            <div class="result-value" id="errors">0</div>
+                            <div class="result-label">Erros</div>
+                        </div>
+                        <div class="result-item">
+                            <div class="result-value" id="score">0</div>
+                            <div class="result-label">Pontuação</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Prática Realista - Sistema de Cadastro de Produtos</p>
+            <div class="footer-links">
+                <a href="index.html">← Voltar para Testes de Digitação</a>
+            </div>
+        </footer>
+    </div>
+
+    <script src="assets/js/teste-produtos.js"></script>
+</body>
+</html>
