@@ -3,360 +3,1220 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Teste de Digitação - Aulas 1 a 6</title>
+    <title>Curso Completo de Digitação</title>
     <style>
-        /* Mantém todo o mesmo CSS do seu arquivo original */
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
+
         body {
             background: linear-gradient(135deg, #1a2a6c, #4d50fd, #4f5ddd);
             color: #333;
             min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             padding: 20px;
         }
+
         .container {
-            max-width: 1000px;
-            width: 100%;
-            background-color: rgba(255, 255, 255, 0.95);
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
             border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             overflow: hidden;
         }
+
+        /* Header */
         header {
             background: linear-gradient(to right, #2c3e50, #4a6491);
             color: white;
             padding: 25px;
             text-align: center;
         }
-        h1 { font-size: 2.2rem; margin-bottom: 10px; }
-        .subtitle { font-size: 1.1rem; opacity: 0.9; }
-        .tabs {
+
+        header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* Navegação Principal */
+        .main-tabs {
+            display: flex;
+            background: #34495e;
+            overflow-x: auto;
+        }
+
+        .main-tab {
+            padding: 15px 25px;
+            color: white;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            white-space: nowrap;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+
+        .main-tab:hover {
+            background: #3c5068;
+        }
+
+        .main-tab.active {
+            background: white;
+            color: #2c3e50;
+            border-bottom: 3px solid #4a6491;
+        }
+
+        /* Conteúdo das Abas */
+        .tab-content {
+            display: none;
+            padding: 0;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Abas Secundárias (para Testes de Digitação) */
+        .sub-tabs {
             display: flex;
             background-color: #f1f1f1;
             overflow-x: auto;
         }
-        .tab {
-            padding: 15px 20px;
+
+        .sub-tab {
+            padding: 12px 20px;
             cursor: pointer;
             border-bottom: 3px solid transparent;
             white-space: nowrap;
             transition: all 0.3s;
         }
-        .tab:hover { background-color: #e9ecef; }
-        .tab.active {
+
+        .sub-tab:hover {
+            background-color: #e9ecef;
+        }
+
+        .sub-tab.active {
             background-color: white;
             border-bottom: 3px solid #4a6491;
             font-weight: bold;
         }
-        .instructions { padding: 20px; background-color: #f8f9fa; border-bottom: 1px solid #e9ecef; }
-        .instructions h2 { color: #2c3e50; margin-bottom: 10px; font-size: 1.4rem; }
-        .instructions li { margin-bottom: 8px; line-height: 1.5; }
+
+        /* Instruções */
+        .instructions {
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .instructions h2 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 1.4rem;
+        }
+
+        .instructions li {
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+
+        /* Estatísticas */
         .stats {
-            display: flex; justify-content: space-around; padding: 15px;
-            background-color: #e9ecef; font-weight: bold; border-bottom: 1px solid #dee2e6;
+            display: flex;
+            justify-content: space-around;
+            padding: 15px;
+            background-color: #e9ecef;
+            font-weight: bold;
+            border-bottom: 1px solid #dee2e6;
             flex-wrap: wrap;
         }
+
         .stat-box {
-            text-align: center; padding: 10px; background-color: white; border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1); min-width: 120px; margin: 5px;
+            text-align: center;
+            padding: 10px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            min-width: 120px;
+            margin: 5px;
         }
-        .stat-value { font-size: 1.8rem; color: #2c3e50; }
-        .stat-label { font-size: 0.9rem; color: #6c757d; }
-        .typing-area { padding: 25px; }
+
+        .stat-value {
+            font-size: 1.8rem;
+            color: #2c3e50;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #6c757d;
+        }
+
+        /* Área de Digitação - Testes Normais */
+        .typing-area {
+            padding: 25px;
+        }
+
         .text-to-type {
-            background-color: #f8f9fa; border: 1px solid #dee2e6; border-radius: 8px;
-            padding: 20px; margin-bottom: 25px; line-height: 1.6; font-size: 1.2rem;
-            min-height: 150px; color: #495057; white-space: pre-wrap;
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 25px;
+            line-height: 1.6;
+            font-size: 1.2rem;
+            min-height: 150px;
+            color: #495057;
+            white-space: pre-wrap;
         }
+
         .input-area {
-            width: 100%; height: 150px; padding: 15px; border: 2px solid #ced4da;
-            border-radius: 8px; font-size: 1.2rem; resize: none; transition: border-color 0.3s;
+            width: 100%;
+            height: 150px;
+            padding: 15px;
+            border: 2px solid #ced4da;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            resize: none;
+            transition: border-color 0.3s;
         }
-        .input-area:focus { outline: none; border-color: #4a6491; box-shadow: 0 0 0 3px rgba(74, 100, 145, 0.25); }
-        .controls { display: flex; justify-content: center; gap: 15px; margin-top: 20px; flex-wrap: wrap; }
+
+        .input-area:focus {
+            outline: none;
+            border-color: #4a6491;
+            box-shadow: 0 0 0 3px rgba(74, 100, 145, 0.25);
+        }
+
+        /* Controles */
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
         button {
-            padding: 12px 25px; border: none; border-radius: 8px;
-            font-size: 1rem; font-weight: bold; cursor: pointer; transition: all 0.3s;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
         }
-        #start-btn { background-color: #28a745; color: white; }
-        #start-btn:hover { background-color: #218838; transform: translateY(-2px); }
-        #reset-btn { background-color: #dc3545; color: white; }
-        #reset-btn:hover { background-color: #c82333; transform: translateY(-2px); }
-        #finish-btn { background-color: #ffc107; color: #212529; }
-        #finish-btn:hover { background-color: #e0a800; transform: translateY(-2px); }
-        #results-btn { background-color: #17a2b8; color: white; }
-        #results-btn:hover { background-color: #138496; transform: translateY(-2px); }
-        .results { display: none; padding: 25px; background-color: #f8f9fa; border-top: 1px solid #dee2e6; }
-        .results h2 { color: #2c3e50; margin-bottom: 20px; text-align: center; }
-        footer { text-align: center; padding: 15px; background-color: #2c3e50; color: white; font-size: 0.9rem; }
+
+        .btn-primary {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #218838;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: #c82333;
+            transform: translateY(-2px);
+        }
+
+        .btn-warning {
+            background-color: #ffc107;
+            color: #212529;
+        }
+
+        .btn-warning:hover {
+            background-color: #e0a800;
+            transform: translateY(-2px);
+        }
+
+        .btn-info {
+            background-color: #17a2b8;
+            color: white;
+        }
+
+        .btn-info:hover {
+            background-color: #138496;
+            transform: translateY(-2px);
+        }
+
+        button:disabled {
+            background-color: #bdc3c7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Resultados */
+        .results {
+            padding: 25px;
+            background-color: #f8f9fa;
+            border-top: 1px solid #dee2e6;
+        }
+
+        .results h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        /* Layout Cadastro de Produtos */
+        .empresa-info {
+            background: #34495e;
+            color: white;
+            padding: 15px 25px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 10px;
+            font-size: 0.9em;
+        }
+
+        .content {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            min-height: 500px;
+        }
+
+        .products-side {
+            background: #f8f9fa;
+            padding: 25px;
+            border-right: 2px solid #e9ecef;
+        }
+
+        .products-side h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #3498db;
+        }
+
+        .input-side {
+            background: white;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .input-side h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #27ae60;
+        }
+
+        /* Cartões de Produto */
+        .product-card {
+            background: white;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .product-card.current {
+            border-color: #3498db;
+            background: #f8f9fa;
+        }
+
+        .product-card.completed {
+            border-color: #27ae60;
+            background: #f8fff9;
+        }
+
+        .product-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #ecf0f1;
+        }
+
+        .product-number {
+            background: #3498db;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+        }
+
+        .product-status {
+            font-size: 0.8em;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-weight: bold;
+        }
+
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-current {
+            background: #d1ecf1;
+            color: #0c5460;
+        }
+
+        .status-completed {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .product-fields {
+            display: grid;
+            gap: 12px;
+        }
+
+        .field-row {
+            display: grid;
+            grid-template-columns: 120px 1fr;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .field-label {
+            font-weight: bold;
+            color: #2c3e50;
+            font-size: 0.9em;
+        }
+
+        .field-value {
+            padding: 8px 12px;
+            background: #f8f9fa;
+            border-radius: 5px;
+            border: 1px solid #e9ecef;
+            font-family: 'Courier New', monospace;
+            min-height: 36px;
+            display: flex;
+            align-items: center;
+        }
+
+        .field-value.highlight-correct {
+            background: #d4edda;
+            color: #155724;
+            border-color: #c3e6cb;
+        }
+
+        .field-value.highlight-incorrect {
+            background: #f8d7da;
+            color: #721c24;
+            border-color: #f5c6cb;
+            text-decoration: underline;
+        }
+
+        .field-value.highlight-current {
+            background: #fff3cd;
+            border-color: #ffeaa7;
+            border-bottom: 2px solid #ffc107;
+        }
+
+        .currency-symbol {
+            color: #27ae60;
+            font-weight: bold;
+            margin-right: 4px;
+        }
+
+        .input-area-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .completion-bar {
+            height: 6px;
+            background: #ecf0f1;
+            border-radius: 3px;
+            margin: 10px 0;
+            overflow: hidden;
+        }
+
+        .completion-progress {
+            height: 100%;
+            background: #27ae60;
+            border-radius: 3px;
+            transition: width 0.3s ease;
+        }
+
+        .current-field-info {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border-left: 4px solid #3498db;
+        }
+
+        .current-field-info h4 {
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .current-field-info p {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+        }
+
+        .result-item {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid #d5e8d5;
+        }
+
+        .result-value {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #27ae60;
+            margin-bottom: 5px;
+        }
+
+        .result-label {
+            font-size: 0.8em;
+            color: #7f8c8d;
+            text-transform: uppercase;
+        }
+
+        .accuracy-high { color: #27ae60 !important; }
+        .accuracy-medium { color: #f39c12 !important; }
+        .accuracy-low { color: #e74c3c !important; }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #2c3e50;
+            color: white;
+            font-size: 0.9rem;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+
+        .pulse {
+            animation: pulse 0.5s ease-in-out;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
-            <h1>Teste de Digitação</h1>
-            <p class="subtitle">Avalie suas habilidades no curso de digitação</p>
+            <h1>🎯 Curso Completo de Digitação</h1>
+            <p class="subtitle">Tudo em uma única página - Desenvolva suas habilidades</p>
         </header>
 
-        <div class="tabs">
-            <div class="tab active" data-lesson="1">Teste 1</div>
-            <div class="tab" data-lesson="2">Teste 2</div>
-            <div class="tab" data-lesson="3">Teste 3</div>
-            <div class="tab" data-lesson="4">Teste 4</div>
-            <div class="tab" data-lesson="5">Teste 5</div>
-            <div class="tab" data-lesson="6">Texto Livre</div>
+        <!-- Navegação Principal -->
+        <div class="main-tabs">
+            <div class="main-tab active" data-tab="testes">📝 Testes de Digitação</div>
+            <div class="main-tab" data-tab="cadastro">📦 Cadastro de Produtos</div>
         </div>
 
-        <section class="instructions">
-            <h2>Instruções:</h2>
-            <ul>
-                <li>Selecione uma aula acima para praticar.</li>
-                <li>Digite o texto abaixo exatamente como está apresentado ou escreva livremente no Teste 6.</li>
-                <li>Concentre-se na precisão e depois na velocidade.</li>
-                <li>O botão <strong>Finalizar</strong> será liberado após 3 minutos no Teste Livre.</li>
-            </ul>
-        </section>
+        <!-- ABA: TESTES DE DIGITAÇÃO -->
+        <div class="tab-content active" id="testes-content">
+            <div class="sub-tabs">
+                <div class="sub-tab active" data-lesson="1">Teste 1</div>
+                <div class="sub-tab" data-lesson="2">Teste 2</div>
+                <div class="sub-tab" data-lesson="3">Teste 3</div>
+                <div class="sub-tab" data-lesson="4">Teste 4</div>
+                <div class="sub-tab" data-lesson="5">Teste 5</div>
+                <div class="sub-tab" data-lesson="6">Texto Livre</div>
+            </div>
 
-        <section class="stats">
-            <div class="stat-box">
-                <div class="stat-value" id="timer">00:00</div>
-                <div class="stat-label" id="time-warning">Tempo decorrido</div>
-            </div>
-            <div class="stat-box">
-                <div class="stat-value" id="wpm">0</div>
-                <div class="stat-label">Palavras por Minuto</div>
-            </div>
-            <div class="stat-box">
-                <div class="stat-value" id="accuracy">100%</div>
-                <div class="stat-label">Precisão</div>
-            </div>
-        </section>
+            <section class="instructions">
+                <h2>Instruções:</h2>
+                <ul>
+                    <li>Selecione uma aula acima para praticar.</li>
+                    <li>Digite o texto abaixo exatamente como está apresentado ou escreva livremente no Teste 6.</li>
+                    <li>Concentre-se na precisão e depois na velocidade.</li>
+                    <li>O botão <strong>Finalizar</strong> será liberado após 3 minutos no Teste Livre.</li>
+                </ul>
+            </section>
 
-        <section class="typing-area">
-            <div class="text-to-type" id="text-to-type">SELECIONE O TESTE</div>
-            <textarea class="input-area" id="typing-input" placeholder="Clique em 'Iniciar Teste' e comece a digitar..." disabled></textarea>
-            <div class="controls">
-                <button id="start-btn">Iniciar Teste</button>
-                <button id="finish-btn" disabled>Finalizar Teste</button>
-                <button id="reset-btn" disabled>Reiniciar</button>
-                <button id="results-btn" disabled>Ver Resultados</button>
-            </div>
-        </section>
+            <section class="stats">
+                <div class="stat-box">
+                    <div class="stat-value" id="timer">00:00</div>
+                    <div class="stat-label" id="time-warning">Tempo decorrido</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value" id="wpm">0</div>
+                    <div class="stat-label">Palavras por Minuto</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value" id="accuracy">100%</div>
+                    <div class="stat-label">Precisão</div>
+                </div>
+            </section>
 
-        <section class="results" id="results">
-            <h2>Seu Desempenho</h2>
-            <p><strong>Velocidade:</strong> <span id="final-wpm">0</span> PPM | 
-               <strong>Precisão:</strong> <span id="final-accuracy">100%</span> |
-               <strong>Tempo:</strong> <span id="final-time">0s</span></p>
-        </section>
+            <section class="typing-area">
+                <div class="text-to-type" id="text-to-type">SELECIONE O TESTE</div>
+                <textarea class="input-area" id="typing-input" placeholder="Clique em 'Iniciar Teste' e comece a digitar..." disabled></textarea>
+                <div class="controls">
+                    <button class="btn-primary" id="start-btn">Iniciar Teste</button>
+                    <button class="btn-warning" id="finish-btn" disabled>Finalizar Teste</button>
+                    <button class="btn-secondary" id="reset-btn" disabled>Reiniciar</button>
+                    <button class="btn-info" id="results-btn" disabled>Ver Resultados</button>
+                </div>
+            </section>
+
+            <section class="results" id="results">
+                <h2>Seu Desempenho</h2>
+                <p><strong>Velocidade:</strong> <span id="final-wpm">0</span> PPM | 
+                   <strong>Precisão:</strong> <span id="final-accuracy">100%</span> |
+                   <strong>Tempo:</strong> <span id="final-time">0s</span></p>
+            </section>
+        </div>
+
+        <!-- ABA: CADASTRO DE PRODUTOS -->
+        <div class="tab-content" id="cadastro-content">
+            <div class="empresa-info">
+                <div><strong>FEDERAL DISTRIBUIDORA DE EMBALAGENS</strong></div>
+                <div>CNPJ: 11.011.793/0001-60</div>
+                <div>Orçamento: #12522 | Data: 22/09/2025</div>
+            </div>
+
+            <div class="stats-panel">
+                <div class="stat-card">
+                    <div class="stat-value" id="prod-wpm">0</div>
+                    <div class="stat-label">Palavras por Minuto</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="prod-accuracy">100%</div>
+                    <div class="stat-label">Precisão</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="prod-time">00:00</div>
+                    <div class="stat-label">Tempo Decorrido</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="prod-progress">0/10</div>
+                    <div class="stat-label">Produtos</div>
+                </div>
+            </div>
+
+            <div class="controls-panel">
+                <button class="btn btn-primary" id="prod-startBtn">▶ INICIAR TESTE</button>
+                <button class="btn btn-secondary" id="prod-resetBtn">🔄 REINICIAR</button>
+                <button class="btn btn-success" id="prod-nextBtn" disabled>⏭️ PRÓXIMO PRODUTO</button>
+            </div>
+
+            <div class="content">
+                <div class="products-side">
+                    <h2>🎯 PRODUTOS PARA CADASTRAR</h2>
+                    <div id="productsContainer"></div>
+                </div>
+
+                <div class="input-side">
+                    <h2>⌨️ ÁREA DE DIGITAÇÃO</h2>
+                    
+                    <div class="current-field-info" id="currentFieldInfo">
+                        <h4>Pronto para começar!</h4>
+                        <p>Clique em "Iniciar Teste" para começar a digitar os dados dos produtos</p>
+                    </div>
+
+                    <div class="input-area-container">
+                        <textarea 
+                            class="input-area" 
+                            id="prod-textInput" 
+                            placeholder="Digite os dados do produto atual aqui... (O campo atual será destacado em amarelo)"
+                            disabled
+                        ></textarea>
+                        
+                        <div class="completion-bar">
+                            <div class="completion-progress" id="completionProgress" style="width: 0%"></div>
+                        </div>
+                    </div>
+
+                    <div class="results" id="prod-results">
+                        <h3>🎯 TESTE CONCLUÍDO!</h3>
+                        <div class="results-grid">
+                            <div class="result-item">
+                                <div class="result-value" id="prod-finalWpm">0</div>
+                                <div class="result-label">PPM Final</div>
+                            </div>
+                            <div class="result-item">
+                                <div class="result-value" id="prod-finalAccuracy">100%</div>
+                                <div class="result-label">Precisão</div>
+                            </div>
+                            <div class="result-item">
+                                <div class="result-value" id="prod-finalTime">00:00</div>
+                                <div class="result-label">Tempo Total</div>
+                            </div>
+                            <div class="result-item">
+                                <div class="result-value" id="prod-totalChars">0</div>
+                                <div class="result-label">Caracteres</div>
+                            </div>
+                            <div class="result-item">
+                                <div class="result-value" id="prod-errors">0</div>
+                                <div class="result-label">Erros</div>
+                            </div>
+                            <div class="result-item">
+                                <div class="result-value" id="prod-score">0</div>
+                                <div class="result-label">Pontuação</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <footer>
-            <p>Teste de Digitação - Baseado nas Aulas 1 a 6</p>
+            <p>Curso Completo de Digitação - Tudo em uma única página</p>
         </footer>
     </div>
 
-  <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const typingInput = document.getElementById('typing-input');
-    const textToType = document.getElementById('text-to-type');
-    const startBtn = document.getElementById('start-btn');
-    const finishBtn = document.getElementById('finish-btn');
-    const resetBtn = document.getElementById('reset-btn');
-    const resultsBtn = document.getElementById('results-btn');
-    const timerDisplay = document.getElementById('timer');
-    const wpmDisplay = document.getElementById('wpm');
-    const accuracyDisplay = document.getElementById('accuracy');
-    const finalWpm = document.getElementById('final-wpm');
-    const finalAccuracy = document.getElementById('final-accuracy');
-    const finalTime = document.getElementById('final-time');
-    const warning = document.getElementById('time-warning');
-    const resultsSection = document.getElementById('results');
-    const tabs = document.querySelectorAll('.tab');
+    <script>
+        // =============================================
+        // CONFIGURAÇÃO INICIAL E NAVEGAÇÃO
+        // =============================================
 
-    const lessonTexts = {
-    1: "o sol brilha; o dia inicia; pessoas caminham; o dever chama; um carro passa. um jovem corre; ele segue apressado; seu chefe aguarda; o sistema inicia. meninos brincam; elas seguem para a escola; a mestra explica; todos escutam atentos. o trem chega; viajantes entram; um jornal aberto; folhas viram. a tarde chega; pausa pequena; sanduiche com carne. amigos encontram; eles conversam sobre jogo. a noite vem; luas e estrelas mostram; a cidade repousa. um sonho surge; a mente flutua; o corpo relaxa. o dia seguinte nasce; a jornada continua firme adiante; fim.",
+        document.addEventListener('DOMContentLoaded', function() {
+            // Navegação entre abas principais
+            const mainTabs = document.querySelectorAll('.main-tab');
+            const tabContents = document.querySelectorAll('.tab-content');
 
-    2: "Cuidar do planeta é responsabilidade de todos. Quando jogamos lixo na rua, ele pode ir parar nos rios e causar enchentes. Separar o lixo reciclável, economizar água e apagar as luzes quando saímos de um cômodo são atitudes simples que fazem diferença. Muitas escolas realizam projetos ambientais para ensinar os alunos a preservar a natureza. Cada pequeno gesto conta e contribui para um futuro melhor. Use a água com consciência e evite o desperdício. Plante uma árvore sempre que possível e incentive outras pessoas a fazerem o mesmo. Hoje é dia 09/10/2025. Este é um bom momento para refletir e agir em favor do meio ambiente.",
+            mainTabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const targetTab = this.getAttribute('data-tab');
+                    
+                    // Atualiza abas principais
+                    mainTabs.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Atualiza conteúdos
+                    tabContents.forEach(content => content.classList.remove('active'));
+                    document.getElementById(`${targetTab}-content`).classList.add('active');
+                });
+            });
 
-    3: "Vivemos em uma época em que o acesso à informação é muito rápido. Com apenas alguns cliques, podemos ler notícias, assistir a vídeos e aprender sobre qualquer assunto. No entanto, é importante verificar se as fontes são confiáveis antes de compartilhar o que recebemos. A desinformação pode causar confusões e até prejudicar pessoas. Por isso, ler com atenção e comparar diferentes fontes é uma forma de exercer a cidadania. A internet é uma ferramenta poderosa para estudar, trabalhar e se comunicar. Usá-la com responsabilidade é essencial para aproveitar seus benefícios. Hoje é 09/10/2025, e estar bem informado é uma habilidade indispensável no mundo atual.",
+            // Inicializa ambos os sistemas
+            initTypingTest();
+            initProductTest();
+        });
 
-    4: "Manter a organização no dia a dia ajuda a economizar tempo e reduzir o estresse. Ter um local limpo e planejado facilita o estudo e o trabalho. Fazer listas de tarefas é uma ótima maneira de lembrar compromissos e priorizar o que é mais importante. Usar uma agenda, seja no papel ou no celular, ajuda a manter o foco. Ao concluir cada tarefa, o sentimento de dever cumprido motiva a continuar. Pequenas atitudes, como guardar os materiais no lugar certo e planejar o dia anterior, fazem uma grande diferença. Hoje é 09/10/2025, e nunca foi tão necessário saber administrar o próprio tempo. Ser organizado é um passo importante para alcançar bons resultados.",
+        // =============================================
+        // SISTEMA 1: TESTES DE DIGITAÇÃO
+        // =============================================
 
-    5: "A tecnologia está transformando a forma como trabalhamos e aprendemos. Novas ferramentas surgem todos os dias, facilitando a comunicação e o acesso à informação. Profissionais que dominam o uso dos computadores e da internet têm mais chances no mercado. No futuro, muitas profissões dependerão de habilidades digitais e de pensamento criativo. Saber digitar com rapidez e precisão é uma dessas competências essenciais. Mesmo com tanta tecnologia, o ser humano continua sendo o centro das decisões. Usar a tecnologia com ética e responsabilidade é o que garante o verdadeiro progresso. Hoje é 09/10/2025, e o futuro já começou. Preparar-se para ele é o melhor investimento.",
+        function initTypingTest() {
+            const typingInput = document.getElementById('typing-input');
+            const textToType = document.getElementById('text-to-type');
+            const startBtn = document.getElementById('start-btn');
+            const finishBtn = document.getElementById('finish-btn');
+            const resetBtn = document.getElementById('reset-btn');
+            const resultsBtn = document.getElementById('results-btn');
+            const timerDisplay = document.getElementById('timer');
+            const wpmDisplay = document.getElementById('wpm');
+            const accuracyDisplay = document.getElementById('accuracy');
+            const finalWpm = document.getElementById('final-wpm');
+            const finalAccuracy = document.getElementById('final-accuracy');
+            const finalTime = document.getElementById('final-time');
+            const warning = document.getElementById('time-warning');
+            const resultsSection = document.getElementById('results');
+            const subTabs = document.querySelectorAll('.sub-tab');
 
-    6: "Escreva um texto livre sobre o tema que desejar. O botão 'Finalizar' será liberado após 3 minutos."
-};
+            const lessonTexts = {
+                1: "o sol brilha; o dia inicia; pessoas caminham; o dever chama; um carro passa. um jovem corre; ele segue apressado; seu chefe aguarda; o sistema inicia. meninos brincam; elas seguem para a escola; a mestra explica; todos escutam atentos. o trem chega; viajantes entram; um jornal aberto; folhas viram. a tarde chega; pausa pequena; sanduiche com carne. amigos encontram; eles conversam sobre jogo. a noite vem; luas e estrelas mostram; a cidade repousa. um sonho surge; a mente flutua; o corpo relaxa. o dia seguinte nasce; a jornada continua firme adiante; fim.",
+                2: "Cuidar do planeta é responsabilidade de todos. Quando jogamos lixo na rua, ele pode ir parar nos rios e causar enchentes. Separar o lixo reciclável, economizar água e apagar as luzes quando saímos de um cômodo são atitudes simples que fazem diferença. Muitas escolas realizam projetos ambientais para ensinar os alunos a preservar a natureza. Cada pequeno gesto conta e contribui para um futuro melhor. Use a água com consciência e evite o desperdício. Plante uma árvore sempre que possível e incentive outras pessoas a fazerem o mesmo. Hoje é dia 09/10/2025. Este é um bom momento para refletir e agir em favor do meio ambiente.",
+                3: "Vivemos em uma época em que o acesso à informação é muito rápido. Com apenas alguns cliques, podemos ler notícias, assistir a vídeos e aprender sobre qualquer assunto. No entanto, é importante verificar se as fontes são confiáveis antes de compartilhar o que recebemos. A desinformação pode causar confusões e até prejudicar pessoas. Por isso, ler com atenção e comparar diferentes fontes é uma forma de exercer a cidadania. A internet é uma ferramenta poderosa para estudar, trabalhar e se comunicar. Usá-la com responsabilidade é essencial para aproveitar seus benefícios. Hoje é 09/10/2025, e estar bem informado é uma habilidade indispensável no mundo atual.",
+                4: "Manter a organização no dia a dia ajuda a economizar tempo e reduzir o estresse. Ter um local limpo e planejado facilita o estudo e o trabalho. Fazer listas de tarefas é uma ótima maneira de lembrar compromissos e priorizar o que é mais importante. Usar uma agenda, seja no papel ou no celular, ajuda a manter o foco. Ao concluir cada tarefa, o sentimento de dever cumprido motiva a continuar. Pequenas atitudes, como guardar os materiais no lugar certo e planejar o dia anterior, fazem uma grande diferença. Hoje é 09/10/2025, e nunca foi tão necessário saber administrar o próprio tempo. Ser organizado é um passo importante para alcançar bons resultados.",
+                5: "A tecnologia está transformando a forma como trabalhamos e aprendemos. Novas ferramentas surgem todos os dias, facilitando a comunicação e o acesso à informação. Profissionais que dominam o uso dos computadores e da internet têm mais chances no mercado. No futuro, muitas profissões dependerão de habilidades digitais e de pensamento criativo. Saber digitar com rapidez e precisão é uma dessas competências essenciais. Mesmo com tanta tecnologia, o ser humano continua sendo o centro das decisões. Usar a tecnologia com ética e responsabilidade é o que garante o verdadeiro progresso. Hoje é 09/10/2025, e o futuro já começou. Preparar-se para ele é o melhor investimento.",
+                6: "Escreva um texto livre sobre o tema que desejar. O botão 'Finalizar' será liberado após 3 minutos."
+            };
 
+            let currentLesson = 1;
+            let elapsedTime = 0;
+            let timerInterval;
+            let testStarted = false;
+            let typedText = '';
+            let totalKeystrokes = 0;
+            let backspaceCount = 0;
+            let errorCount = 0;
+            let originalText = '';
 
-    let currentLesson = 1;
-    let elapsedTime = 0;
-    let timerInterval;
-    let testStarted = false;
-    let typedText = '';
-    let totalKeystrokes = 0;
-    let backspaceCount = 0;
-    let errorCount = 0;
-    let originalText = '';
-
-    tabs.forEach(tab => {
-        tab.addEventListener('click', function() {
-            tabs.forEach(t => t.classList.remove('active'));
-            this.classList.add('active');
-            currentLesson = parseInt(this.getAttribute('data-lesson'));
+            // Inicializa com o primeiro teste
             originalText = lessonTexts[currentLesson];
             textToType.textContent = originalText;
-            resetTest();
-        });
-    });
 
-    startBtn.addEventListener('click', startTest);
-    finishBtn.addEventListener('click', finishTest);
-    resetBtn.addEventListener('click', resetTest);
-    typingInput.addEventListener('input', handleTyping);
+            subTabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    subTabs.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    currentLesson = parseInt(this.getAttribute('data-lesson'));
+                    originalText = lessonTexts[currentLesson];
+                    textToType.textContent = originalText;
+                    resetTest();
+                });
+            });
 
-    function startTest() {
-        testStarted = true;
-        typingInput.disabled = false;
-        typingInput.focus();
-        startBtn.disabled = true;
-        finishBtn.disabled = false;
-        resetBtn.disabled = false;
-        resultsBtn.disabled = true;
-        elapsedTime = 0;
-        timerInterval = setInterval(updateTimer, 1000);
-        totalKeystrokes = 0;
-        backspaceCount = 0;
-        errorCount = 0;
-        typedText = '';
+            startBtn.addEventListener('click', startTest);
+            finishBtn.addEventListener('click', finishTest);
+            resetBtn.addEventListener('click', resetTest);
+            typingInput.addEventListener('input', handleTyping);
 
-        if (currentLesson === 6) {
-            const minTime = 180; // 3 minutos
-            finishBtn.disabled = true;
+            function startTest() {
+                testStarted = true;
+                typingInput.disabled = false;
+                typingInput.focus();
+                startBtn.disabled = true;
+                finishBtn.disabled = false;
+                resetBtn.disabled = false;
+                resultsBtn.disabled = true;
+                elapsedTime = 0;
+                timerInterval = setInterval(updateTimer, 1000);
+                totalKeystrokes = 0;
+                backspaceCount = 0;
+                errorCount = 0;
+                typedText = '';
 
-            const countdown = setInterval(() => {
-                if (!testStarted) { clearInterval(countdown); return; }
-                const restante = minTime - elapsedTime;
-                if (restante > 0) {
-                    warning.textContent = `⏳ Aguarde ${restante}s para finalizar`;
-                } else {
-                    warning.textContent = "✅ Você já pode finalizar o teste.";
-                    finishBtn.disabled = false;
-                    clearInterval(countdown);
+                if (currentLesson === 6) {
+                    const minTime = 180;
+                    finishBtn.disabled = true;
+
+                    const countdown = setInterval(() => {
+                        if (!testStarted) { clearInterval(countdown); return; }
+                        const restante = minTime - elapsedTime;
+                        if (restante > 0) {
+                            warning.textContent = `⏳ Aguarde ${restante}s para finalizar`;
+                        } else {
+                            warning.textContent = "✅ Você já pode finalizar o teste.";
+                            finishBtn.disabled = false;
+                            clearInterval(countdown);
+                        }
+                    }, 1000);
                 }
-            }, 1000);
-        }
-    }
-
-    function updateTimer() {
-        if (!testStarted) return;
-        elapsedTime++;
-        const min = Math.floor(elapsedTime / 60);
-        const sec = elapsedTime % 60;
-        timerDisplay.textContent = `${min.toString().padStart(2,'0')}:${sec.toString().padStart(2,'0')}`;
-    }
-
-    // 🧠 Cálculo de precisão em tempo real (Testes 1–5 por erro / Teste 6 por backspaces)
-    function handleTyping(e) {
-        if (!testStarted) return;
-
-        const newTypedText = typingInput.value;
-
-        // detectar backspaces
-        if (newTypedText.length < typedText.length) {
-            backspaceCount++;
-        }
-
-        totalKeystrokes++;
-        typedText = newTypedText;
-
-        // cálculo de precisão
-        let accuracy = 100;
-
-        if (currentLesson === 6) {
-            // Teste Livre: precisão baseada em backspaces
-            const penalty = (backspaceCount / totalKeystrokes) * 100;
-            accuracy = Math.max(0, Math.round(100 - penalty));
-        } else {
-            // Testes 1–5: compara com texto original
-            let errors = 0;
-            for (let i = 0; i < newTypedText.length; i++) {
-                if (originalText[i] !== newTypedText[i]) errors++;
             }
-            accuracy = Math.max(0, Math.round(((newTypedText.length - errors) / (newTypedText.length || 1)) * 100));
-        }
 
-        accuracyDisplay.textContent = `${accuracy}%`;
-
-        // calcular velocidade
-        const elapsedTimeMinutes = elapsedTime / 60 || 1/60;
-        const wordCount = newTypedText.trim().split(/\s+/).filter(Boolean).length;
-        const wpm = Math.round(wordCount / elapsedTimeMinutes);
-        wpmDisplay.textContent = wpm;
-    }
-
-    function finishTest() {
-        if (currentLesson === 6 && elapsedTime < 180) {
-            alert("⚠️ Você precisa digitar por pelo menos 3 minutos antes de finalizar.");
-            return;
-        }
-        clearInterval(timerInterval);
-        testStarted = false;
-        typingInput.disabled = true;
-        finishBtn.disabled = true;
-        resultsBtn.disabled = false;
-
-        const textoDigitado = typingInput.value.trim();
-        const wordCount = textoDigitado.split(/\s+/).filter(Boolean).length;
-        const wpm = Math.round(wordCount / (elapsedTime / 60));
-
-        let accuracy = 100;
-        if (currentLesson === 6) {
-            const penalty = (backspaceCount / totalKeystrokes) * 100;
-            accuracy = Math.max(0, Math.round(100 - penalty));
-        } else {
-            let errors = 0;
-            for (let i = 0; i < typedText.length; i++) {
-                if (typedText[i] !== originalText[i]) errors++;
+            function updateTimer() {
+                if (!testStarted) return;
+                elapsedTime++;
+                const min = Math.floor(elapsedTime / 60);
+                const sec = elapsedTime % 60;
+                timerDisplay.textContent = `${min.toString().padStart(2,'0')}:${sec.toString().padStart(2,'0')}`;
             }
-            accuracy = Math.max(0, Math.round(((typedText.length - errors) / (typedText.length || 1)) * 100));
+
+            function handleTyping(e) {
+                if (!testStarted) return;
+
+                const newTypedText = typingInput.value;
+
+                if (newTypedText.length < typedText.length) {
+                    backspaceCount++;
+                }
+
+                totalKeystrokes++;
+                typedText = newTypedText;
+
+                let accuracy = 100;
+
+                if (currentLesson === 6) {
+                    const penalty = (backspaceCount / totalKeystrokes) * 100;
+                    accuracy = Math.max(0, Math.round(100 - penalty));
+                } else {
+                    let errors = 0;
+                    for (let i = 0; i < newTypedText.length; i++) {
+                        if (originalText[i] !== newTypedText[i]) errors++;
+                    }
+                    accuracy = Math.max(0, Math.round(((newTypedText.length - errors) / (newTypedText.length || 1)) * 100));
+                }
+
+                accuracyDisplay.textContent = `${accuracy}%`;
+
+                const elapsedTimeMinutes = elapsedTime / 60 || 1/60;
+                const wordCount = newTypedText.trim().split(/\s+/).filter(Boolean).length;
+                const wpm = Math.round(wordCount / elapsedTimeMinutes);
+                wpmDisplay.textContent = wpm;
+            }
+
+            function finishTest() {
+                if (currentLesson === 6 && elapsedTime < 180) {
+                    alert("⚠️ Você precisa digitar por pelo menos 3 minutos antes de finalizar.");
+                    return;
+                }
+                clearInterval(timerInterval);
+                testStarted = false;
+                typingInput.disabled = true;
+                finishBtn.disabled = true;
+                resultsBtn.disabled = false;
+
+                const textoDigitado = typingInput.value.trim();
+                const wordCount = textoDigitado.split(/\s+/).filter(Boolean).length;
+                const wpm = Math.round(wordCount / (elapsedTime / 60));
+
+                let accuracy = 100;
+                if (currentLesson === 6) {
+                    const penalty = (backspaceCount / totalKeystrokes) * 100;
+                    accuracy = Math.max(0, Math.round(100 - penalty));
+                } else {
+                    let errors = 0;
+                    for (let i = 0; i < typedText.length; i++) {
+                        if (typedText[i] !== originalText[i]) errors++;
+                    }
+                    accuracy = Math.max(0, Math.round(((typedText.length - errors) / (typedText.length || 1)) * 100));
+                }
+
+                finalWpm.textContent = wpm;
+                finalAccuracy.textContent = `${accuracy}%`;
+                finalTime.textContent = `${elapsedTime}s`;
+                resultsSection.style.display = 'block';
+            }
+
+            function resetTest() {
+                clearInterval(timerInterval);
+                testStarted = false;
+                elapsedTime = 0;
+                timerDisplay.textContent = '00:00';
+                wpmDisplay.textContent = '0';
+                accuracyDisplay.textContent = '100%';
+                typingInput.value = '';
+                typingInput.disabled = true;
+                startBtn.disabled = false;
+                finishBtn.disabled = true;
+                resetBtn.disabled = true;
+                resultsBtn.disabled = true;
+                resultsSection.style.display = 'none';
+                warning.textContent = 'Tempo decorrido';
+                typedText = '';
+                totalKeystrokes = 0;
+                backspaceCount = 0;
+            }
         }
 
-        finalWpm.textContent = wpm;
-        finalAccuracy.textContent = `${accuracy}%`;
-        finalTime.textContent = `${elapsedTime}s`;
-        resultsSection.style.display = 'block';
-    }
+        // =============================================
+        // SISTEMA 2: CADASTRO DE PRODUTOS
+        // =============================================
 
-    function resetTest() {
-        clearInterval(timerInterval);
-        testStarted = false;
-        elapsedTime = 0;
-        timerDisplay.textContent = '00:00';
-        wpmDisplay.textContent = '0';
-        accuracyDisplay.textContent = '100%';
-        typingInput.value = '';
-        typingInput.disabled = true;
-        startBtn.disabled = false;
-        finishBtn.disabled = true;
-        resetBtn.disabled = true;
-        resultsBtn.disabled = true;
-        resultsSection.style.display = 'none';
-        warning.textContent = 'Tempo decorrido';
-        typedText = '';
-        totalKeystrokes = 0;
-        backspaceCount = 0;
-    }
-});
-</script>
+        function initProductTest() {
+            class ProductTypingTest {
+                constructor() {
+                    this.products = [
+                        { codigo: '15154515', descricao: 'Copo plástico 500 ml ultra c/1000', quantidade: '2', valorUnitario: '219,50', valorTotal: '439,00' },
+                        { codigo: '154839852', descricao: 'Copo plástico 300ml ultra c/2000', quantidade: '2', valorUnitario: '195,80', valorTotal: '391,60' },
+                        { codigo: '5343545', descricao: 'Saco kraft mix pastel 1 c/500', quantidade: '5', valorUnitario: '17,90', valorTotal: '89,50' },
+                        { codigo: '534565', descricao: 'Canudo bio longo ex c/2500', quantidade: '1', valorUnitario: '97,50', valorTotal: '97,50' },
+                        { codigo: '8484464', descricao: 'Copo plástico 50ml c/5000', quantidade: '1', valorUnitario: '91,50', valorTotal: '91,50' },
+                        { codigo: '215454545', descricao: 'Garrafa plástica com tampa 500ml c/100', quantidade: '3', valorUnitario: '57,20', valorTotal: '171,60' },
+                        { codigo: '323233232', descricao: 'Garrafa plástica com tampa 1000ml c/100', quantidade: '6', valorUnitario: '85,20', valorTotal: '511,20' },
+                        { codigo: '7898934414023', descricao: 'Sacola milheiro pura 30x40 c/1000', quantidade: '3 PC', valorUnitario: '36,25', valorTotal: '108,75' },
+                        { codigo: '325345', descricao: 'Colher sobremesa prafesta 20x50 ex c/1000', quantidade: '1', valorUnitario: '40,55', valorTotal: '40,55' },
+                        { codigo: '323233233', descricao: 'Guardanapo tv pacote grande fardo c/10', quantidade: '3', valorUnitario: '106,25', valorTotal: '318,75' }
+                    ];
 
+                    this.currentProductIndex = 0;
+                    this.currentFieldIndex = 0;
+                    this.fields = ['codigo', 'descricao', 'quantidade', 'valorUnitario', 'valorTotal'];
+                    this.fieldLabels = {
+                        'codigo': 'Código do Produto',
+                        'descricao': 'Descrição do Produto', 
+                        'quantidade': 'Quantidade',
+                        'valorUnitario': 'Valor Unitário (apenas números)',
+                        'valorTotal': 'Valor Total (apenas números)'
+                    };
 
+                    this.textInput = document.getElementById('prod-textInput');
+                    this.productsContainer = document.getElementById('productsContainer');
+                    this.currentFieldInfo = document.getElementById('currentFieldInfo');
+                    this.completionProgress = document.getElementById('completionProgress');
+                    this.startBtn = document.getElementById('prod-startBtn');
+                    this.resetBtn = document.getElementById('prod-resetBtn');
+                    this.nextBtn = document.getElementById('prod-nextBtn');
+                    this.results = document.getElementById('prod-results');
+                    
+                    this.wpmElement = document.getElementById('prod-wpm');
+                    this.accuracyElement = document.getElementById('prod-accuracy');
+                    this.timeElement = document.getElementById('prod-time');
+                    this.progressElement = document.getElementById('prod-progress');
+                    
+                    this.finalWpm = document.getElementById('prod-finalWpm');
+                    this.finalAccuracy = document.getElementById('prod-finalAccuracy');
+                    this.finalTime = document.getElementById('prod-finalTime');
+                    this.totalChars = document.getElementById('prod-totalChars');
+                    this.errorsElement = document.getElementById('prod-errors');
+                    this.scoreElement = document.getElementById('prod-score');
+
+                    this.isRunning = false;
+                    this.startTime = null;
+                    this.timerInterval = null;
+                    this.errors = 0;
+                    this.totalKeystrokes = 0;
+                    this.correctKeystrokes = 0;
+
+                    this.init();
+                }
+
+                init() {
+                    this.startBtn.addEventListener('click', () => this.startTest());
+                    this.resetBtn.addEventListener('click', () => this.resetTest());
+                    this.nextBtn.addEventListener('click', () => this.nextProduct());
+                    this.textInput.addEventListener('input', () => this.handleInput());
+                    
+                    this.renderProducts();
+                    this.updateProgress();
+                }
+
+                renderProducts() {
+                    this.productsContainer.innerHTML = '';
+                    this.products.forEach((product, index) => {
+                        const card = document.createElement('div');
+                        card.className = `product-card ${index === this.currentProductIndex ? 'current' : ''} ${index < this.currentProductIndex ? 'completed' : ''}`;
+                        
+                        const status = index === this.currentProductIndex ? 'status-current' : 
+                                      index < this.currentProductIndex ? 'status-completed' : 'status-pending';
+                        const statusText = index === this.currentProductIndex ? 'DIGITANDO' : 
+                                         index < this.currentProductIndex ? 'CONCLUÍDO' : 'PENDENTE';
+
+                        card.innerHTML = `
+                            <div class="product-header">
+                                <div class="product-number">PRODUTO ${index + 1}</div>
+                                <div class="product-status ${status}">${statusText}</div>
+                            </div>
+                            <div class="product-fields">
+                                <div class="field-row">
+                                    <div class="field-label">Código:</div>
+                                    <div class="field-value" id="prod-${index}-codigo">${product.codigo}</div>
+                                </div>
+                                <div class="field-row">
+                                    <div class="field-label">Descrição:</div>
+                                    <div class="field-value" id="prod-${index}-descricao">${product.descricao}</div>
+                                </div>
+                                <div class="field-row">
+                                    <div class="field-label">Quantidade:</div>
+                                    <div class="field-value" id="prod-${index}-quantidade">${product.quantidade}</div>
+                                </div>
+                                <div class="field-row">
+                                    <div class="field-label">Valor Unitário:</div>
+                                    <div class="field-value" id="prod-${index}-valorUnitario"><span class="currency-symbol">R$</span> ${product.valorUnitario}</div>
+                                </div>
+                                <div class="field-row">
+                                    <div class="field-label">Valor Total:</div>
+                                    <div class="field-value" id="prod-${index}-valorTotal"><span class="currency-symbol">R$</span> ${product.valorTotal}</div>
+                                </div>
+                            </div>
+                        `;
+                        this.productsContainer.appendChild(card);
+                    });
+                }
+
+                startTest() {
+                    if (this.isRunning) return;
+
+                    this.isRunning = true;
+                    this.startTime = new Date();
+                    this.textInput.disabled = false;
+                    this.textInput.focus();
+                    this.startBtn.disabled = true;
+                    this.nextBtn.disabled = false;
+                    this.results.style.display = 'none';
+
+                    this.startTimer();
+                    this.updateCurrentField();
+                }
+
+                startTimer() {
+                    this.timerInterval = setInterval(() => {
+                        const currentTime = new Date();
+                        const elapsedTime = (currentTime - this.startTime) / 1000;
+                        this.updateStats(elapsedTime);
+                    }, 100);
+                }
+
+                updateCurrentField() {
+                    const currentProduct = this.products[this.currentProductIndex];
+                    const currentField = this.fields[this.currentFieldIndex];
+                    
+                    let expectedValue = currentProduct[currentField];
+                    let displayValue = expectedValue;
+                    
+                    if (currentField === 'valorUnitario' || currentField === 'valorTotal') {
+                        displayValue = `R$ ${expectedValue}`;
+                    }
+
+                    this.currentFieldInfo.innerHTML = `
+                        <h4>📝 ${this.fieldLabels[currentField]}</h4>
+                        <p>Produto ${this.currentProductIndex + 1} de ${this.products.length} | Campo ${this.currentFieldIndex + 1} de ${this.fields.length}</p>
+                        <p><strong>Valor esperado:</strong> ${displayValue}</p>
+                        ${currentField === 'valorUnitario' || currentField === 'valorTotal' ? '<p><em>Digite apenas os números, sem "R$"</em></p>' : ''}
+                    `;
+
+                    this.resetHighlights();
+                    
+                    const fieldElement = document.getElementById(`prod-${this.currentProductIndex}-${currentField}`);
+                    if (fieldElement) {
+                        fieldElement.classList.add('highlight-current');
+                    }
+
+                    this.textInput.value = '';
+                    this.textInput.focus();
+                }
+
+                resetHighlights() {
+                    this.fields.forEach(field => {
+                        const element = document.getElementById(`prod-${this.currentProductIndex}-${field}`);
+                        if (element) {
+                            element.classList.remove('highlight-correct', 'highlight-incorrect', 'highlight-current');
+                        }
+                    });
+                }
+
+                handleInput() {
+                    if (!this.isRunning) return;
+
+                    const typedText = this.textInput.value;
+                    this.totalKeystrokes++;
+
+                    const currentProduct = this.products[this.currentProductIndex];
+                    const currentField = this.fields[this.currentFieldIndex];
+                    const expectedValue = currentProduct[currentField];
+
+                    const fieldElement = document.getElementById(`prod-${this.currentProductIndex}-${currentField}`);
+                    
+                    if (typedText === expectedValue) {
+                        fieldElement.classList.remove('highlight-current', 'highlight-incorrect');
+                        fieldElement.classList.add('highlight-correct');
+                        this.correctKeystrokes++;
+                        this.nextField();
+                    } else if (expectedValue.startsWith(typedText)) {
+                        fieldElement.classList.remove('highlight-incorrect');
+                        fieldElement.classList.add('highlight-current');
+                        this.correctKeystrokes++;
+                    } else {
+                        fieldElement.classList.remove('highlight-current');
+                        fieldElement.classList.add('highlight-incorrect');
+                        this.errors++;
+                    }
+                }
+
+                nextField() {
+                    this.currentFieldIndex++;
+                    
+                    if (this.currentFieldIndex >= this.fields.length) {
+                        this.nextProduct();
+                    } else {
+                        this.updateCurrentField();
+                    }
+                }
+
+                nextProduct() {
+                    this.currentProductIndex++;
+                    this.currentFieldIndex = 0;
+
+                    if (this.currentProductIndex >= this.products.length) {
+                        this.finishTest();
+                    } else {
+                        this.renderProducts();
+                        this.updateCurrentField();
+                        this.updateProgress();
+                    }
+                }
+
+                updateProgress() {
+                    const progress = (this.currentProductIndex / this.products.length) * 100;
+                    this.completionProgress.style.width = `${progress}%`;
+                    this.progressElement.textContent = `${this.currentProductIndex}/${this.products.length}`;
+                }
+
+                updateStats(elapsedTime) {
+                    const words = this.correctKeystrokes / 5;
+                    const minutes = elapsedTime / 60;
+                    const wpm = minutes > 0 ? Math.round(words / minutes) : 0;
+                    this.wpmElement.textContent = wpm;
+
+                    const accuracy = this.totalKeystrokes > 0 
+                        ? Math.max(0, Math.round((this.correctKeystrokes / this.totalKeystrokes) * 100))
+                        : 100;
+                    this.accuracyElement.textContent = accuracy + '%';
+                    this.accuracyElement.className = 'stat-value ' + 
+                        (accuracy >= 90 ? 'accuracy-high' : 
+                         accuracy >= 80 ? 'accuracy-medium' : 'accuracy-low');
+
+                    const minutesFormatted = Math.floor(elapsedTime / 60).toString().padStart(2, '0');
+                    const secondsFormatted = Math.floor(elapsedTime % 60).toString().padStart(2, '0');
+                    this.timeElement.textContent = `${minutesFormatted}:${secondsFormatted}`;
+                }
+
+                finishTest() {
+                    this.isRunning = false;
+                    clearInterval(this.timerInterval);
+                    this.textInput.disabled = true;
+                    this.nextBtn.disabled = true;
+
+                    const endTime = new Date();
+                    const totalTime = (endTime - this.startTime) / 1000;
+                    
+                    const words = this.correctKeystrokes / 5;
+                    const finalWpm = Math.round(words / (totalTime / 60));
+                    const finalAccuracy = Math.round((this.correctKeystrokes / this.totalKeystrokes) * 100);
+                    const score = Math.round(finalWpm * (finalAccuracy / 100));
+
+                    this.finalWpm.textContent = finalWpm;
+                    this.finalAccuracy.textContent = finalAccuracy + '%';
+                    this.finalAccuracy.className = 'result-value ' + 
+                        (finalAccuracy >= 90 ? 'accuracy-high' : 
+                         finalAccuracy >= 80 ? 'accuracy-medium' : 'accuracy-low');
+                    this.totalChars.textContent = this.totalKeystrokes;
+                    this.errorsElement.textContent = this.errors;
+                    this.scoreElement.textContent = score;
+
+                    const minutesFormatted = Math.floor(totalTime / 60).toString().padStart(2, '0');
+                    const secondsFormatted = Math.floor(totalTime % 60).toString().padStart(2, '0');
+                    this.finalTime.textContent = `${minutesFormatted}:${secondsFormatted}`;
+
+                    this.results.style.display = 'block';
+                    this.currentFieldInfo.innerHTML = `
+                        <h4>🎉 Teste Concluído!</h4>
+                        <p>Todos os produtos foram cadastrados com sucesso!</p>
+                    `;
+                }
+
+                resetTest() {
+                    this.isRunning = false;
+                    clearInterval(this.timerInterval);
+                    
+                    this.currentProductIndex = 0;
+                    this.currentFieldIndex = 0;
+                    this.textInput.value = '';
+                    this.textInput.disabled = true;
+                    
+                    this.wpmElement.textContent = '0';
+                    this.accuracyElement.textContent = '100%';
+                    this.accuracyElement.className = 'stat-value accuracy-high';
+                    this.timeElement.textContent = '00:00';
+                    this.progressElement.textContent = '0/10';
+                    this.completionProgress.style.width = '0%';
+                    
+                    this.results.style.display = 'none';
+                    this.startBtn.disabled = false;
+                    this.nextBtn.disabled = true;
+                    
+                    this.errors = 0;
+                    this.totalKeystrokes = 0;
+                    this.correctKeystrokes = 0;
+                    
+                    this.renderProducts();
+                    this.updateCurrentField();
+                }
+            }
+
+            new ProductTypingTest();
+        }
+    </script>
 </body>
 </html>
-
