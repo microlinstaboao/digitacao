@@ -398,11 +398,11 @@
             background: #f8f9fa;
             border-radius: 5px;
             border: 1px solid #e9ecef;
-            font-family: 'Consolas', 'Monaco', 'Courier New', monospace; /* Fonte alterada */
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
             min-height: 36px;
             display: flex;
             align-items: center;
-            font-size: 1.1em; /* Tamanho aumentado para melhor legibilidade */
+            font-size: 1.1em;
         }
 
         .field-value.highlight-correct {
@@ -955,340 +955,330 @@
         // =============================================
 
         function initProductTest() {
-            class ProductTypingTest {
-                constructor() {
-                    this.products = [
-                        { codigo: '15154515', descricao: 'Copo plástico 500 ml ultra c/1000', quantidade: '2', valorUnitario: '219,50', valorTotal: '439,00' },
-                        { codigo: '154839852', descricao: 'Copo plástico 300ml ultra c/2000', quantidade: '2', valorUnitario: '195,80', valorTotal: '391,60' },
-                        { codigo: '154839853', descricao: 'Copo plástico 200ml ultra c/2000', quantidade: '2', valorUnitario: '185,50', valorTotal: '371,00' },
-                        { codigo: '154839854', descricao: 'Copo plástico 150ml ultra c/2000', quantidade: '2', valorUnitario: '175,20', valorTotal: '350,40' },
-                        { codigo: '154839855', descricao: 'Copo plástico 100ml ultra c/2000', quantidade: '2', valorUnitario: '165,90', valorTotal: '331,80' },
-                        { codigo: '154839856', descricao: 'Prato plástico 23cm c/50', quantidade: '2', valorUnitario: '155,60', valorTotal: '311,20' },
-                        { codigo: '154839857', descricao: 'Prato plástico 21cm c/50', quantidade: '2', valorUnitario: '145,30', valorTotal: '290,60' },
-                        { codigo: '154839858', descricao: 'Prato plástico 19cm c/50', quantidade: '2', valorUnitario: '135,00', valorTotal: '270,00' },
-                        { codigo: '154839859', descricao: 'Tampa para copo c/1000', quantidade: '2', valorUnitario: '125,70', valorTotal: '251,40' },
-                        { codigo: '154839860', descricao: 'Colher plástica c/1000', quantidade: '2', valorUnitario: '115,40', valorTotal: '230,80' }
-                    ];
+            // Definição das variáveis globais para o sistema de produtos
+            const products = [
+                { codigo: '15154515', descricao: 'Copo plástico 500 ml ultra c/1000', quantidade: '2', valorUnitario: '219,50', valorTotal: '439,00' },
+                { codigo: '154839852', descricao: 'Copo plástico 300ml ultra c/2000', quantidade: '2', valorUnitario: '195,80', valorTotal: '391,60' },
+                { codigo: '5343545', descricao: 'Saco kraft mix pastel 1 c/500', quantidade: '5', valorUnitario: '17,90', valorTotal: '89,50' },
+                { codigo: '534565', descricao: 'Canudo bio longo ex c/2500', quantidade: '1', valorUnitario: '97,50', valorTotal: '97,50' },
+                { codigo: '8484464', descricao: 'Copo plástico 50ml c/5000', quantidade: '1', valorUnitario: '91,50', valorTotal: '91,50' },
+                { codigo: '215454545', descricao: 'Garrafa plástica com tampa 500ml c/100', quantidade: '3', valorUnitario: '57,20', valorTotal: '171,60' },
+                { codigo: '323233232', descricao: 'Garrafa plástica com tampa 1000ml c/100', quantidade: '6', valorUnitario: '85,20', valorTotal: '511,20' },
+                { codigo: '7898934414023', descricao: 'Sacola milheiro pura 30x40 c/1000', quantidade: '3 PC', valorUnitario: '36,25', valorTotal: '108,75' },
+                { codigo: '325345', descricao: 'Colher sobremesa pra festa 20x50 ex c/1000', quantidade: '1', valorUnitario: '40,55', valorTotal: '40,55' },
+                { codigo: '323233233', descricao: 'Guardanapo tv pacote grande fardo c/10', quantidade: '3', valorUnitario: '106,25', valorTotal: '318,75' }
+            ];
 
-                    this.currentProductIndex = 0;
-                    this.currentFieldIndex = 0;
-                    this.testStarted = false;
-                    this.startTime = null;
-                    this.timerInterval = null;
-                    this.elapsedTime = 0;
-                    this.totalKeystrokes = 0;
-                    this.backspaceCount = 0;
-                    this.errorCount = 0;
-                    this.correctChars = 0;
-                    this.totalChars = 0;
-                    this.currentInput = '';
-                    this.fieldCompleted = false;
+            const fields = ['codigo', 'descricao', 'quantidade', 'valorUnitario', 'valorTotal'];
+            const fieldLabels = {
+                'codigo': 'Código do Produto',
+                'descricao': 'Descrição do Produto', 
+                'quantidade': 'Quantidade',
+                'valorUnitario': 'Valor Unitário',
+                'valorTotal': 'Valor Total'
+            };
 
-                    this.initializeElements();
-                    this.renderProducts();
-                    this.attachEventListeners();
-                }
+            let currentProductIndex = 0;
+            let currentFieldIndex = 0;
+            let testStarted = false;
+            let startTime = null;
+            let timerInterval = null;
+            let elapsedTime = 0;
+            let totalKeystrokes = 0;
+            let backspaceCount = 0;
+            let correctChars = 0;
 
-                initializeElements() {
-                    this.productsContainer = document.getElementById('productsContainer');
-                    this.textInput = document.getElementById('prod-textInput');
-                    this.currentFieldInfo = document.getElementById('currentFieldInfo');
-                    this.completionProgress = document.getElementById('completionProgress');
-                    
-                    this.wpmDisplay = document.getElementById('prod-wpm');
-                    this.accuracyDisplay = document.getElementById('prod-accuracy');
-                    this.timeDisplay = document.getElementById('prod-time');
-                    this.progressDisplay = document.getElementById('prod-progress');
-                    
-                    this.startBtn = document.getElementById('prod-startBtn');
-                    this.resetBtn = document.getElementById('prod-resetBtn');
-                    this.nextBtn = document.getElementById('prod-nextBtn');
-                    
-                    this.finalWpm = document.getElementById('prod-finalWpm');
-                    this.finalAccuracy = document.getElementById('prod-finalAccuracy');
-                    this.finalTime = document.getElementById('prod-finalTime');
-                    this.totalCharsDisplay = document.getElementById('prod-totalChars');
-                    this.errorsDisplay = document.getElementById('prod-errors');
-                    this.scoreDisplay = document.getElementById('prod-score');
-                }
+            // Elementos do DOM
+            const productsContainer = document.getElementById('productsContainer');
+            const textInput = document.getElementById('prod-textInput');
+            const currentFieldInfo = document.getElementById('currentFieldInfo');
+            const completionProgress = document.getElementById('completionProgress');
+            const startBtn = document.getElementById('prod-startBtn');
+            const resetBtn = document.getElementById('prod-resetBtn');
+            const nextBtn = document.getElementById('prod-nextBtn');
+            const results = document.getElementById('prod-results');
+            
+            const wpmDisplay = document.getElementById('prod-wpm');
+            const accuracyDisplay = document.getElementById('prod-accuracy');
+            const timeDisplay = document.getElementById('prod-time');
+            const progressDisplay = document.getElementById('prod-progress');
+            
+            const finalWpm = document.getElementById('prod-finalWpm');
+            const finalAccuracy = document.getElementById('prod-finalAccuracy');
+            const finalTime = document.getElementById('prod-finalTime');
+            const totalCharsDisplay = document.getElementById('prod-totalChars');
+            const errorsDisplay = document.getElementById('prod-errors');
+            const scoreDisplay = document.getElementById('prod-score');
 
-                renderProducts() {
-                    this.productsContainer.innerHTML = '';
+            // Inicialização
+            renderProducts();
+            updateCurrentField();
+
+            // Event Listeners
+            startBtn.addEventListener('click', startTest);
+            resetBtn.addEventListener('click', resetTest);
+            nextBtn.addEventListener('click', nextFieldOrProduct);
+            textInput.addEventListener('input', handleTyping);
+
+            function renderProducts() {
+                productsContainer.innerHTML = '';
+                
+                products.forEach((product, index) => {
+                    const card = document.createElement('div');
+                    card.className = `product-card ${index === currentProductIndex ? 'current' : ''} ${index < currentProductIndex ? 'completed' : ''}`;
                     
-                    this.products.forEach((product, index) => {
-                        const card = document.createElement('div');
-                        card.className = 'product-card';
-                        
-                        if (index === this.currentProductIndex) {
-                            card.classList.add('current');
-                        } else if (index < this.currentProductIndex) {
-                            card.classList.add('completed');
-                        }
-                        
-                        const status = index === this.currentProductIndex ? 'current' : 
-                                     index < this.currentProductIndex ? 'completed' : 'pending';
-                        
-                        const statusText = {
-                            'current': 'EM DIGITAÇÃO',
-                            'completed': 'CONCLUÍDO',
-                            'pending': 'PENDENTE'
-                        };
-                        
-                        const statusClass = {
-                            'current': 'status-current',
-                            'completed': 'status-completed',
-                            'pending': 'status-pending'
-                        };
-                        
-                        card.innerHTML = `
-                            <div class="product-header">
-                                <div class="product-number">Produto ${index + 1}</div>
-                                <div class="product-status ${statusClass[status]}">${statusText[status]}</div>
+                    const status = index === currentProductIndex ? 'status-current' : 
+                                  index < currentProductIndex ? 'status-completed' : 'status-pending';
+                    const statusText = index === currentProductIndex ? 'DIGITANDO' : 
+                                     index < currentProductIndex ? 'CONCLUÍDO' : 'PENDENTE';
+
+                    card.innerHTML = `
+                        <div class="product-header">
+                            <div class="product-number">PRODUTO ${index + 1}</div>
+                            <div class="product-status ${status}">${statusText}</div>
+                        </div>
+                        <div class="product-fields">
+                            <div class="field-row">
+                                <div class="field-label">Código:</div>
+                                <div class="field-value" id="prod-${index}-codigo">${product.codigo}</div>
                             </div>
-                            <div class="product-fields">
-                                <div class="field-row">
-                                    <div class="field-label">Código:</div>
-                                    <div class="field-value" id="prod-${index}-codigo">${product.codigo}</div>
-                                </div>
-                                <div class="field-row">
-                                    <div class="field-label">Descrição:</div>
-                                    <div class="field-value" id="prod-${index}-descricao">${product.descricao}</div>
-                                </div>
-                                <div class="field-row">
-                                    <div class="field-label">Quantidade:</div>
-                                    <div class="field-value" id="prod-${index}-quantidade">${product.quantidade}</div>
-                                </div>
-                                <div class="field-row">
-                                    <div class="field-label">Valor Unitário:</div>
-                                    <div class="field-value" id="prod-${index}-valorUnitario">R$ ${product.valorUnitario}</div>
-                                </div>
-                                <div class="field-row">
-                                    <div class="field-label">Valor Total:</div>
-                                    <div class="field-value" id="prod-${index}-valorTotal">R$ ${product.valorTotal}</div>
-                                </div>
+                            <div class="field-row">
+                                <div class="field-label">Descrição:</div>
+                                <div class="field-value" id="prod-${index}-descricao">${product.descricao}</div>
                             </div>
-                        `;
-                        
-                        this.productsContainer.appendChild(card);
-                    });
-                }
-
-                attachEventListeners() {
-                    this.startBtn.addEventListener('click', () => this.startTest());
-                    this.resetBtn.addEventListener('click', () => this.resetTest());
-                    this.nextBtn.addEventListener('click', () => this.nextProduct());
-                    this.textInput.addEventListener('input', (e) => this.handleTyping(e));
-                    this.textInput.addEventListener('keydown', (e) => {
-                        if (e.key === 'Enter' && this.fieldCompleted) {
-                            this.nextField();
-                        }
-                    });
-                }
-
-                startTest() {
-                    this.testStarted = true;
-                    this.startTime = Date.now();
-                    this.textInput.disabled = false;
-                    this.textInput.focus();
-                    this.startBtn.disabled = true;
-                    this.nextBtn.disabled = false;
-                    
-                    this.timerInterval = setInterval(() => {
-                        this.elapsedTime++;
-                        this.updateStats();
-                    }, 1000);
-                    
-                    this.updateCurrentField();
-                }
-
-                updateCurrentField() {
-                    const currentProduct = this.products[this.currentProductIndex];
-                    const fields = ['codigo', 'descricao', 'quantidade', 'valorUnitario', 'valorTotal'];
-                    const currentField = fields[this.currentFieldIndex];
-                    
-                    const fieldLabels = {
-                        'codigo': 'Código do Produto',
-                        'descricao': 'Descrição do Produto',
-                        'quantidade': 'Quantidade',
-                        'valorUnitario': 'Valor Unitário',
-                        'valorTotal': 'Valor Total'
-                    };
-                    
-                    this.currentFieldInfo.innerHTML = `
-                        <h4>Campo Atual: ${fieldLabels[currentField]}</h4>
-                        <p>Digite: <strong>${currentProduct[currentField]}</strong></p>
+                            <div class="field-row">
+                                <div class="field-label">Quantidade:</div>
+                                <div class="field-value" id="prod-${index}-quantidade">${product.quantidade}</div>
+                            </div>
+                            <div class="field-row">
+                                <div class="field-label">Valor Unitário:</div>
+                                <div class="field-value" id="prod-${index}-valorUnitario"><span class="currency-symbol">R$</span> ${product.valorUnitario}</div>
+                            </div>
+                            <div class="field-row">
+                                <div class="field-label">Valor Total:</div>
+                                <div class="field-value" id="prod-${index}-valorTotal"><span class="currency-symbol">R$</span> ${product.valorTotal}</div>
+                            </div>
+                        </div>
                     `;
-                    
-                    this.highlightCurrentField();
-                    this.textInput.value = '';
-                    this.currentInput = '';
-                    this.fieldCompleted = false;
+                    productsContainer.appendChild(card);
+                });
+            }
+
+            function updateCurrentField() {
+                if (currentProductIndex >= products.length) {
+                    finishTest();
+                    return;
                 }
 
-                highlightCurrentField() {
-                    document.querySelectorAll('.field-value').forEach(el => {
-                        el.classList.remove('highlight-current', 'highlight-correct', 'highlight-incorrect');
-                    });
-                    
-                    const currentFieldEl = document.getElementById(`prod-${this.currentProductIndex}-${fields[this.currentFieldIndex]}`);
-                    if (currentFieldEl) {
-                        currentFieldEl.classList.add('highlight-current');
-                    }
+                const currentProduct = products[currentProductIndex];
+                const currentField = fields[currentFieldIndex];
+                const expectedValue = currentProduct[currentField];
+                
+                let displayValue = expectedValue;
+                if (currentField === 'valorUnitario' || currentField === 'valorTotal') {
+                    displayValue = `R$ ${expectedValue}`;
                 }
 
-                handleTyping(e) {
-                    if (!this.testStarted) return;
-                    
-                    const newInput = e.target.value;
-                    const currentProduct = this.products[this.currentProductIndex];
-                    const currentField = fields[this.currentFieldIndex];
-                    const targetText = currentProduct[currentField];
-                    
-                    this.totalKeystrokes++;
-                    
-                    if (newInput.length < this.currentInput.length) {
-                        this.backspaceCount++;
-                    }
-                    
-                    this.currentInput = newInput;
-                    
-                    const fieldEl = document.getElementById(`prod-${this.currentProductIndex}-${currentField}`);
-                    
-                    if (fieldEl) {
-                        fieldEl.classList.remove('highlight-correct', 'highlight-incorrect');
-                        
-                        if (newInput === targetText) {
-                            fieldEl.classList.add('highlight-correct');
-                            this.fieldCompleted = true;
-                            this.correctChars += targetText.length;
-                        } else if (targetText.startsWith(newInput)) {
-                            fieldEl.classList.add('highlight-current');
-                        } else {
-                            fieldEl.classList.add('highlight-incorrect');
-                        }
-                    }
-                    
-                    this.updateStats();
+                currentFieldInfo.innerHTML = `
+                    <h4>📝 ${fieldLabels[currentField]}</h4>
+                    <p>Produto ${currentProductIndex + 1} de ${products.length} | Campo ${currentFieldIndex + 1} de ${fields.length}</p>
+                    <p><strong>Valor esperado:</strong> ${displayValue}</p>
+                    ${currentField === 'valorUnitario' || currentField === 'valorTotal' ? '<p><em>Digite apenas os números, sem "R$"</em></p>' : ''}
+                `;
+
+                resetHighlights();
+                
+                const fieldElement = document.getElementById(`prod-${currentProductIndex}-${currentField}`);
+                if (fieldElement) {
+                    fieldElement.classList.add('highlight-current');
                 }
 
-                nextField() {
-                    if (!this.fieldCompleted) return;
-                    
-                    const fields = ['codigo', 'descricao', 'quantidade', 'valorUnitario', 'valorTotal'];
-                    this.currentFieldIndex++;
-                    
-                    if (this.currentFieldIndex >= fields.length) {
-                        this.nextProduct();
-                    } else {
-                        this.updateCurrentField();
-                    }
-                }
-
-                nextProduct() {
-                    if (!this.fieldCompleted && this.currentFieldIndex < 4) return;
-                    
-                    this.currentProductIndex++;
-                    this.currentFieldIndex = 0;
-                    
-                    if (this.currentProductIndex >= this.products.length) {
-                        this.finishTest();
-                    } else {
-                        this.renderProducts();
-                        this.updateCurrentField();
-                        this.updateProgress();
-                    }
-                }
-
-                updateProgress() {
-                    const progress = (this.currentProductIndex / this.products.length) * 100;
-                    this.completionProgress.style.width = `${progress}%`;
-                    this.progressDisplay.textContent = `${this.currentProductIndex}/10`;
-                }
-
-                updateStats() {
-                    const elapsedMinutes = this.elapsedTime / 60 || 1/60;
-                    const wordCount = this.correctChars / 5;
-                    const wpm = Math.round(wordCount / elapsedMinutes);
-                    
-                    const accuracy = this.totalKeystrokes > 0 
-                        ? Math.max(0, Math.round(((this.totalKeystrokes - this.backspaceCount) / this.totalKeystrokes) * 100))
-                        : 100;
-                    
-                    const min = Math.floor(this.elapsedTime / 60);
-                    const sec = this.elapsedTime % 60;
-                    
-                    this.wpmDisplay.textContent = wpm;
-                    this.accuracyDisplay.textContent = `${accuracy}%`;
-                    this.timeDisplay.textContent = `${min.toString().padStart(2,'0')}:${sec.toString().padStart(2,'0')}`;
-                    this.progressDisplay.textContent = `${this.currentProductIndex}/10`;
-                }
-
-                finishTest() {
-                    clearInterval(this.timerInterval);
-                    this.testStarted = false;
-                    this.textInput.disabled = true;
-                    this.nextBtn.disabled = true;
-                    
-                    const totalTimeMinutes = this.elapsedTime / 60;
-                    const finalWpm = Math.round((this.correctChars / 5) / totalTimeMinutes);
-                    const finalAccuracy = this.totalKeystrokes > 0 
-                        ? Math.max(0, Math.round(((this.totalKeystrokes - this.backspaceCount) / this.totalKeystrokes) * 100))
-                        : 100;
-                    
-                    const min = Math.floor(this.elapsedTime / 60);
-                    const sec = this.elapsedTime % 60;
-                    
-                    this.finalWpm.textContent = finalWpm;
-                    this.finalAccuracy.textContent = `${finalAccuracy}%`;
-                    this.finalTime.textContent = `${min.toString().padStart(2,'0')}:${sec.toString().padStart(2,'0')}`;
-                    this.totalCharsDisplay.textContent = this.totalKeystrokes;
-                    this.errorsDisplay.textContent = this.backspaceCount;
-                    
-                    const score = Math.round(finalWpm * (finalAccuracy / 100));
-                    this.scoreDisplay.textContent = score;
-                    
-                    this.completionProgress.style.width = '100%';
-                    this.progressDisplay.textContent = '10/10';
-                }
-
-                resetTest() {
-                    clearInterval(this.timerInterval);
-                    this.currentProductIndex = 0;
-                    this.currentFieldIndex = 0;
-                    this.testStarted = false;
-                    this.elapsedTime = 0;
-                    this.totalKeystrokes = 0;
-                    this.backspaceCount = 0;
-                    this.errorCount = 0;
-                    this.correctChars = 0;
-                    this.fieldCompleted = false;
-                    
-                    this.textInput.value = '';
-                    this.textInput.disabled = true;
-                    this.startBtn.disabled = false;
-                    this.nextBtn.disabled = true;
-                    
-                    this.wpmDisplay.textContent = '0';
-                    this.accuracyDisplay.textContent = '100%';
-                    this.timeDisplay.textContent = '00:00';
-                    this.progressDisplay.textContent = '0/10';
-                    this.completionProgress.style.width = '0%';
-                    
-                    this.currentFieldInfo.innerHTML = `
-                        <h4>Pronto para começar!</h4>
-                        <p>Clique em "Iniciar Teste" para começar a digitar os dados dos produtos</p>
-                    `;
-                    
-                    this.renderProducts();
-                    document.querySelectorAll('.field-value').forEach(el => {
-                        el.classList.remove('highlight-current', 'highlight-correct', 'highlight-incorrect');
-                    });
+                textInput.value = '';
+                if (testStarted) {
+                    textInput.focus();
                 }
             }
 
-            // Inicializa o teste de cadastro de produtos
-            const productTest = new ProductTypingTest();
-            window.productTest = productTest;
+            function resetHighlights() {
+                fields.forEach(field => {
+                    const element = document.getElementById(`prod-${currentProductIndex}-${field}`);
+                    if (element) {
+                        element.classList.remove('highlight-correct', 'highlight-incorrect', 'highlight-current');
+                    }
+                });
+            }
+
+            function handleTyping(e) {
+                if (!testStarted) return;
+
+                const typedText = e.target.value;
+                totalKeystrokes++;
+
+                const currentProduct = products[currentProductIndex];
+                const currentField = fields[currentFieldIndex];
+                const expectedValue = currentProduct[currentField];
+
+                const fieldElement = document.getElementById(`prod-${currentProductIndex}-${currentField}`);
+                
+                // Verifica se o texto digitado está correto
+                if (typedText === expectedValue) {
+                    fieldElement.classList.remove('highlight-current', 'highlight-incorrect');
+                    fieldElement.classList.add('highlight-correct');
+                    correctChars += expectedValue.length;
+                    
+                    // Avança automaticamente para o próximo campo após um pequeno delay
+                    setTimeout(() => {
+                        nextFieldOrProduct();
+                    }, 500);
+                    
+                } else if (expectedValue.startsWith(typedText)) {
+                    // Texto parcialmente correto
+                    fieldElement.classList.remove('highlight-incorrect');
+                    fieldElement.classList.add('highlight-current');
+                    correctChars = typedText.length;
+                } else {
+                    // Texto incorreto
+                    fieldElement.classList.remove('highlight-current');
+                    fieldElement.classList.add('highlight-incorrect');
+                }
+
+                updateStats();
+            }
+
+            function nextFieldOrProduct() {
+                currentFieldIndex++;
+                
+                if (currentFieldIndex >= fields.length) {
+                    // Todos os campos do produto atual foram preenchidos
+                    currentProductIndex++;
+                    currentFieldIndex = 0;
+                    
+                    if (currentProductIndex >= products.length) {
+                        finishTest();
+                    } else {
+                        renderProducts();
+                        updateCurrentField();
+                        updateProgress();
+                    }
+                } else {
+                    // Próximo campo do mesmo produto
+                    updateCurrentField();
+                }
+            }
+
+            function updateProgress() {
+                const progress = (currentProductIndex / products.length) * 100;
+                completionProgress.style.width = `${progress}%`;
+                progressDisplay.textContent = `${currentProductIndex}/${products.length}`;
+            }
+
+            function updateStats() {
+                const elapsedMinutes = elapsedTime / 60 || 1/60;
+                const wordCount = correctChars / 5;
+                const wpm = Math.round(wordCount / elapsedMinutes);
+                
+                const accuracy = totalKeystrokes > 0 
+                    ? Math.max(0, Math.round(((totalKeystrokes - backspaceCount) / totalKeystrokes) * 100))
+                    : 100;
+                
+                const min = Math.floor(elapsedTime / 60);
+                const sec = elapsedTime % 60;
+                
+                wpmDisplay.textContent = wpm;
+                accuracyDisplay.textContent = `${accuracy}%`;
+                
+                // Aplica classe de cor baseada na precisão
+                accuracyDisplay.className = 'stat-value ' + 
+                    (accuracy >= 90 ? 'accuracy-high' : 
+                     accuracy >= 80 ? 'accuracy-medium' : 'accuracy-low');
+                
+                timeDisplay.textContent = `${min.toString().padStart(2,'0')}:${sec.toString().padStart(2,'0')}`;
+                progressDisplay.textContent = `${currentProductIndex}/${products.length}`;
+            }
+
+            function startTest() {
+                testStarted = true;
+                startTime = Date.now();
+                textInput.disabled = false;
+                textInput.focus();
+                startBtn.disabled = true;
+                nextBtn.disabled = false;
+                results.style.display = 'none';
+
+                timerInterval = setInterval(() => {
+                    elapsedTime = Math.floor((Date.now() - startTime) / 1000);
+                    updateStats();
+                }, 1000);
+
+                updateCurrentField();
+            }
+
+            function finishTest() {
+                testStarted = false;
+                clearInterval(timerInterval);
+                textInput.disabled = true;
+                nextBtn.disabled = true;
+
+                const totalTimeMinutes = elapsedTime / 60;
+                const finalWpmValue = Math.round((correctChars / 5) / totalTimeMinutes);
+                const finalAccuracyValue = totalKeystrokes > 0 
+                    ? Math.max(0, Math.round(((totalKeystrokes - backspaceCount) / totalKeystrokes) * 100))
+                    : 100;
+                
+                const score = Math.round(finalWpmValue * (finalAccuracyValue / 100));
+
+                finalWpm.textContent = finalWpmValue;
+                finalAccuracy.textContent = `${finalAccuracyValue}%`;
+                finalAccuracy.className = 'result-value ' + 
+                    (finalAccuracyValue >= 90 ? 'accuracy-high' : 
+                     finalAccuracyValue >= 80 ? 'accuracy-medium' : 'accuracy-low');
+                
+                totalCharsDisplay.textContent = totalKeystrokes;
+                errorsDisplay.textContent = backspaceCount;
+                scoreDisplay.textContent = score;
+
+                const min = Math.floor(elapsedTime / 60);
+                const sec = elapsedTime % 60;
+                finalTime.textContent = `${min.toString().padStart(2,'0')}:${sec.toString().padStart(2,'0')}`;
+
+                results.style.display = 'block';
+                currentFieldInfo.innerHTML = `
+                    <h4>🎉 Teste Concluído!</h4>
+                    <p>Todos os produtos foram cadastrados com sucesso!</p>
+                `;
+                
+                completionProgress.style.width = '100%';
+                progressDisplay.textContent = '10/10';
+            }
+
+            function resetTest() {
+                testStarted = false;
+                clearInterval(timerInterval);
+                
+                currentProductIndex = 0;
+                currentFieldIndex = 0;
+                elapsedTime = 0;
+                totalKeystrokes = 0;
+                backspaceCount = 0;
+                correctChars = 0;
+                
+                textInput.value = '';
+                textInput.disabled = true;
+                
+                wpmDisplay.textContent = '0';
+                accuracyDisplay.textContent = '100%';
+                accuracyDisplay.className = 'stat-value accuracy-high';
+                timeDisplay.textContent = '00:00';
+                progressDisplay.textContent = '0/10';
+                completionProgress.style.width = '0%';
+                
+                results.style.display = 'none';
+                startBtn.disabled = false;
+                nextBtn.disabled = true;
+                
+                renderProducts();
+                updateCurrentField();
+            }
         }
     </script>
 </body>
