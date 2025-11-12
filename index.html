@@ -1121,26 +1121,30 @@
                 const fieldElement = document.getElementById(`prod-${currentProductIndex}-${currentField}`);
                 
                 // Verifica se o texto digitado está correto
-                if (typedText === expectedValue) {
-                    fieldElement.classList.remove('highlight-current', 'highlight-incorrect');
-                    fieldElement.classList.add('highlight-correct');
-                    correctChars += expectedValue.length;
-                    
-                    // Avança automaticamente para o próximo campo após um pequeno delay
-                    setTimeout(() => {
-                        nextFieldOrProduct();
-                    }, 500);
-                    
-                } else if (expectedValue.startsWith(typedText)) {
-                    // Texto parcialmente correto
-                    fieldElement.classList.remove('highlight-incorrect');
-                    fieldElement.classList.add('highlight-current');
-                    correctChars = typedText.length;
-                } else {
-                    // Texto incorreto
-                    fieldElement.classList.remove('highlight-current');
-                    fieldElement.classList.add('highlight-incorrect');
-                }
+             
+if (typedText === expectedValue) {
+    fieldElement.classList.remove('highlight-current', 'highlight-incorrect');
+    fieldElement.classList.add('highlight-correct');
+    correctChars += expectedValue.length;
+    
+    setTimeout(() => {
+        nextFieldOrProduct();
+    }, 500);
+
+} else {
+    const matchedLength = expectedValue.split('').reduce((acc, char, i) => {
+        return acc + (typedText[i] === char ? 1 : 0);
+    }, 0);
+    correctChars = matchedLength;
+
+    if (expectedValue.startsWith(typedText)) {
+        fieldElement.classList.remove('highlight-incorrect');
+        fieldElement.classList.add('highlight-current');
+    } else {
+        fieldElement.classList.remove('highlight-current');
+        fieldElement.classList.add('highlight-incorrect');
+    }
+}
 
                 updateStats();
             }
@@ -1283,3 +1287,4 @@
     </script>
 </body>
 </html>
+
