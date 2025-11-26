@@ -20,14 +20,12 @@
         }
 
         .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            overflow: hidden;
-        }
-
+    max-width: 1200px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
         /* Header */
         header {
             background: linear-gradient(to right, #2c3e50, #4a6491);
@@ -128,14 +126,18 @@
 
         /* Estatísticas */
         .stats {
-            display: flex;
-            justify-content: space-around;
-            padding: 15px;
-            background-color: #e9ecef;
-            font-weight: bold;
-            border-bottom: 1px solid #dee2e6;
-            flex-wrap: wrap;
-        }
+    display: flex;
+    justify-content: space-around;
+    padding: 15px;
+    background-color: #e9ecef;
+    font-weight: bold;
+    border-bottom: 1px solid #dee2e6;
+    flex-wrap: wrap;
+
+    position: sticky;
+    top: 0;
+    z-index: 50;
+}
 
         .stat-box {
             text-align: center;
@@ -1287,5 +1289,6 @@ if (typedText === expectedValue) {
     </script>
 </body>
 </html>
+
 
 
